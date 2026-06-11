@@ -1,7 +1,7 @@
 # APP_CONTEXT_MASTER — Contexto Mestre Profundo do Aplicativo
 
-**Última atualização:** 2026-06-11 — contexto mestre restaurado e ampliado com auditoria profunda de lacunas: leitura física/digital, PDF/EPUB/Kindle, plataformas futuras, skills, subagentes, beta, monetização, Home, Mente e reconstrução V2 do zero  
-**Uso recomendado:** este é o documento principal para reconstruir, orientar e proteger o projeto no novo sistema/Linux, no Claude Code, no Codex, no VS Code e em qualquer nova implementação.
+**Última atualização:** 2026-06-11 — contexto mestre ampliado com auditoria profunda de lacunas: leitura física/digital, PDF/EPUB/Kindle, plataformas futuras, skills, subagentes, beta, monetização, Home e Mente  
+**Uso recomendado:** este é o documento principal para orientar e proteger o projeto no Claude Code, no Codex, no VS Code e em qualquer implementação.
 
 > Este documento não é uma transcrição literal de todos os chats. Ele consolida, aprofunda e organiza as decisões, ideias, regras, aprendizados, correções, hipóteses e caminhos definidos nas conversas sobre o aplicativo. Quando houver conflito entre uma ideia antiga e uma decisão mais recente, a decisão mais recente deve prevalecer.
 
@@ -9,11 +9,11 @@
 
 ## 0. Estado atual da situação
 
-O sistema antigo foi apagado e o ambiente está sendo reconstruído em Linux. O usuário informou que **não possui mais o código anterior para auditoria**. Portanto, a estratégia correta agora é **começar o projeto do zero**, usando este documento como fonte de verdade de produto, UX e engenharia.
+Este é o primeiro aplicativo, sendo construído com calma em Linux, usando este documento como fonte de verdade de produto, UX e engenharia.
 
-A prioridade agora é não perder o contexto estratégico, emocional, visual e técnico do aplicativo, mas também não tentar “ressuscitar” um código que não existe mais. A reconstrução deve ser feita como uma V2 limpa, com arquitetura simples, documentação forte, validação incremental e ciclos pequenos.
+A prioridade é construir com clareza: arquitetura simples, documentação forte, validação incremental e ciclos pequenos, sem perder o contexto estratégico, emocional, visual e técnico do aplicativo.
 
-Antes de qualquer nova implementação, este documento deve ser salvo dentro do repositório em:
+Este documento fica salvo dentro do repositório em:
 
 ```text
 docs/APP_CONTEXT.md
@@ -21,13 +21,8 @@ docs/APP_CONTEXT.md
 
 E deve ser usado como fonte de verdade para qualquer IA ou desenvolvedor que mexer no projeto.
 
-### Consequência prática da perda do código
+### Princípios práticos de construção
 
-Como não há código antigo para auditar:
-
-- não tentar corrigir projeto antigo;
-- não gastar energia procurando bug antigo sem base real;
-- reconstruir apenas o que já foi validado conceitualmente;
 - começar pelo menor ciclo de valor;
 - criar documentação antes de código;
 - criar esqueleto técnico antes de telas complexas;
@@ -35,7 +30,7 @@ Como não há código antigo para auditar:
 - registrar cada decisão nova em `docs/ACTIVE_DECISIONS.md`;
 - manter um `docs/KANBAN.md` desde o início.
 
-A reconstrução deve tratar o passado como **aprendizado de produto**, não como dependência técnica.
+O projeto deve tratar aprendizados anteriores como **aprendizado de produto**, não como dependência técnica.
 
 ---
 
@@ -356,7 +351,7 @@ Evitar:
 
 ### Home refinada escolhida / variações
 
-Já existiam variações da Home e Biblioteca. A decisão correta não é recriar protótipos duplicados, mas auditar o que existe e escolher a direção visual.
+Podem surgir variações da Home e Biblioteca. A decisão correta não é multiplicar protótipos duplicados, mas escolher com clareza a direção visual.
 
 A “Home refinada” mencionada combinava:
 
@@ -1325,7 +1320,7 @@ A análise do blog e do vídeo do Akita reforçou isso:
 
 ---
 
-## 36. Método Akita aplicado à reconstrução com IA
+## 36. Método Akita aplicado ao desenvolvimento com IA
 
 Esta seção consolida o que devemos aproveitar do vídeo **“O Método Fábio Akita para programar com IA”**, do canal Mano Deyvin, e do blog **“RANT: o Akita abriu as pernas pra IA??”**, do Fábio Akita.
 
@@ -1363,7 +1358,7 @@ Aproveitar:
 Não aproveitar de forma literal:
 
 - fazer tudo sem nunca tocar manualmente no código;
-- transformar a reconstrução em desafio de velocidade;
+- transformar o desenvolvimento em desafio de velocidade;
 - priorizar “produzir muito” acima de validar o produto;
 - copiar estilo agressivo de comunicação do Akita para o aplicativo;
 - confundir método de desenvolvimento com experiência do usuário.
@@ -1407,7 +1402,7 @@ Antes de qualquer código, criar:
 ```text
 docs/APP_CONTEXT.md
 docs/PRODUCT_PRINCIPLES.md
-docs/REBUILD_PLAN.md
+docs/ROADMAP.md
 docs/KANBAN.md
 docs/ACTIVE_DECISIONS.md
 docs/UX_LANGUAGE.md
@@ -1503,9 +1498,9 @@ git clean -fd
 force push
 ```
 
-### Aplicação direta à reconstrução do zero
+### Aplicação direta ao desenvolvimento
 
-Como não temos mais o código antigo, a reconstrução deve seguir o método:
+A construção deve seguir o método:
 
 1. **Documentar antes de codar.** Este arquivo vira `docs/APP_CONTEXT.md`.
 2. **Criar PRD curto.** Não um documento gigante; um PRD que prove o ciclo mínimo.
@@ -1561,7 +1556,7 @@ Antes de qualquer deploy público/beta:
 
 ### Decisão adicionada ao contexto mestre
 
-A partir desta análise, a reconstrução do aplicativo deve seguir este princípio:
+A partir desta análise, o desenvolvimento do aplicativo deve seguir este princípio:
 
 > **Vamos programar com IA, mas construir como engenheiros: documentação, contexto, escopo pequeno, testes, revisão, segurança e commits claros.**
 
@@ -1613,7 +1608,7 @@ Leia docs/APP_CONTEXT.md e entenda completamente o contexto do aplicativo. Não 
 
 ---
 
-## 38. Linux e reconstrução do ambiente
+## 38. Linux e preparação do ambiente
 
 O usuário instalou Linux e apagou o sistema anterior.
 
@@ -1660,7 +1655,7 @@ docs/ACTIVE_DECISIONS.md
 docs/FUTURE_IDEAS.md
 docs/DEFERRED_IDEAS.md
 docs/WORKFLOW.md
-docs/REBUILD_PLAN.md
+docs/ROADMAP.md
 docs/KANBAN.md
 docs/VISUAL_DECISIONS.md
 ```
@@ -1693,9 +1688,9 @@ Ideias conscientemente adiadas.
 
 Como usar IA, Git, testes e commits.
 
-### REBUILD_PLAN.md
+### ROADMAP.md
 
-Plano para reconstrução ou V2.
+Plano de evolução do aplicativo em fases.
 
 ### KANBAN.md
 
@@ -1792,7 +1787,7 @@ Evitar commits genéricos:
 - sessão de leitura perder estado;
 - build quebrar;
 - IA alterar arquivos demais;
-- projeto antigo virar bagunça;
+- código virar bagunça;
 - deploy sem validação.
 
 ### UX
@@ -1807,17 +1802,17 @@ Evitar commits genéricos:
 
 ---
 
-## 43. Prioridade de reconstrução agora
+## 43. Prioridade de construção agora
 
 Ordem recomendada:
 
 1. Salvar este documento no projeto.
 2. Criar `CLAUDE.md`.
-3. Clonar ou recriar repositório.
+3. Configurar o repositório.
 4. Instalar dependências.
 5. Rodar typecheck/lint/build.
-6. Auditar projeto existente, se houver.
-7. Decidir entre continuar projeto antigo ou V2 limpa.
+6. Garantir a base técnica limpa.
+7. Manter o esqueleto técnico simples e organizado.
 8. Definir MVP enxuto.
 9. Refazer/ajustar Home e Biblioteca.
 10. Garantir Modo Leitura com timer real.
@@ -1828,22 +1823,17 @@ Ordem recomendada:
 
 ---
 
-## 44. Decisão sobre começar do zero
+## 44. Decisão sobre construir com simplicidade
 
-Foi discutido que o projeto atual talvez estivesse visualmente insatisfatório e que começar do zero poderia ser melhor.
-
-A decisão madura não é jogar tudo fora sem análise.
+O aplicativo deve nascer pequeno e limpo, crescendo com calma.
 
 Caminho correto:
 
-- auditar o que existe;
-- reaproveitar o que for útil;
+- preservar as decisões boas já tomadas;
+- construir com clareza, uma área de cada vez;
 - descartar o que polui;
-- preservar decisões boas;
-- reconstruir com mais clareza se necessário;
-- não recriar protótipos duplicados sem necessidade.
-
-Se começar V2, a V2 deve nascer menor e mais limpa.
+- não multiplicar protótipos duplicados sem necessidade;
+- manter cada versão menor e mais limpa do que a vontade de fazer tudo de uma vez.
 
 ---
 
@@ -2099,11 +2089,11 @@ Fontes analisadas para esta atualização:
 
 Como essas fontes afetam o aplicativo:
 
-- reforçam que a reconstrução deve começar por documentação e arquitetura;
+- reforçam que o desenvolvimento deve começar por documentação e arquitetura;
 - reforçam que o projeto deve ser pequeno, testável e reversível;
 - reforçam que a IA não decide produto;
 - reforçam que Supabase, auth, RLS e dados do usuário exigem cuidado humano;
-- reforçam que o código antigo perdido não deve ser perseguido: a V2 deve nascer limpa, com contexto herdado e implementação nova.
+- reforçam que o aplicativo deve nascer limpo, com contexto bem definido e implementação cuidadosa.
 
 ---
 
@@ -2130,7 +2120,7 @@ As áreas que precisavam ficar mais explícitas:
 - audiobooks e conteúdos escutados como possibilidade futura;
 - Apple Watch/smartwatch como captura rápida futura;
 - caneta inteligente/OCR como ponte entre leitura física e digital;
-- skills e subagentes para reconstrução com Claude Code;
+- skills e subagentes para desenvolvimento com Claude Code;
 - beta fechado com contas individuais;
 - Home com capas dos livros em leitura;
 - exibição do nome do usuário em vez de e-mail;
@@ -2783,7 +2773,7 @@ Regra:
 
 ## 75. Claude Code: arquitetura de skills e subagentes
 
-A reconstrução do zero deve usar Claude Code com disciplina.
+O desenvolvimento deve usar Claude Code com disciplina.
 
 ### 73.1. Diferença prática
 
@@ -3062,7 +3052,7 @@ Exemplos:
 
 ## 76. MCPs, conectores e acesso a serviços externos
 
-A reconstrução pode se beneficiar de MCPs/conectores, mas com controle.
+O desenvolvimento pode se beneficiar de MCPs/conectores, mas com controle.
 
 Possíveis integrações de desenvolvimento:
 
@@ -3082,16 +3072,16 @@ Regras:
 
 ---
 
-## 77. Roadmap recomendado para reconstrução V2 do zero
+## 77. Roadmap recomendado de desenvolvimento
 
-Como não há mais código antigo, o plano deve ser reconstrução limpa.
+O plano deve ser construído de forma limpa e incremental.
 
 ### Fase -1 — Memória e documentação
 
 Criar:
 
 - `docs/APP_CONTEXT.md`;
-- `docs/REBUILD_PLAN.md`;
+- `docs/ROADMAP.md`;
 - `docs/ACTIVE_DECISIONS.md`;
 - `docs/KANBAN.md`;
 - `docs/READING_SOURCES.md`;
@@ -3286,7 +3276,7 @@ Além do contexto mestre, criar arquivos menores para a IA não se perder.
 ```text
 docs/
   APP_CONTEXT.md
-  REBUILD_PLAN.md
+  ROADMAP.md
   ACTIVE_DECISIONS.md
   KANBAN.md
   VISUAL_DECISIONS.md
@@ -3314,8 +3304,7 @@ Regra:
 Leia docs/APP_CONTEXT.md inteiro antes de qualquer implementação.
 
 Contexto atual:
-- não temos mais o código antigo;
-- vamos reconstruir o aplicativo do zero;
+- vamos construir o aplicativo com calma;
 - use “o aplicativo” como nome por enquanto;
 - o app é uma memória de leitura calma, não uma máquina de produtividade;
 - precisa suportar leitura física e futuramente leitura interna por PDF/EPUB;
@@ -3328,7 +3317,7 @@ Tarefa:
 2. Liste as decisões não negociáveis.
 3. Proponha a estrutura inicial de pastas e documentos.
 4. Proponha as skills e subagentes necessários em `.claude/`.
-5. Proponha o roadmap V2 em fatias pequenas.
+5. Proponha o roadmap em fatias pequenas.
 6. Não altere arquivos de produto ainda.
 7. Não crie banco, auth, Supabase ou telas sem aprovação.
 
