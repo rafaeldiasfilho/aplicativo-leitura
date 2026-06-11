@@ -978,9 +978,9 @@ Em uma fase anterior, foi implementado:
 Validações passaram:
 
 ```bash
-npm run typecheck
-npm run lint
-npm run build
+pnpm typecheck
+pnpm lint
+pnpm build
 ```
 
 Smoke test local anterior:
@@ -1442,15 +1442,15 @@ Para cada tarefa:
 Comandos mínimos depois de alterações:
 
 ```bash
-npm run typecheck
-npm run lint
-npm run build
+pnpm typecheck
+pnpm lint
+pnpm build
 ```
 
 Quando houver testes automatizados:
 
 ```bash
-npm test
+pnpm test
 ```
 
 ### Política de erro da IA
@@ -1618,15 +1618,15 @@ Ambiente recomendado:
 4. instalar Node via nvm;
 5. instalar Claude Code;
 6. clonar o repositório em pasta limpa;
-7. rodar `npm install`;
+7. rodar `pnpm install`;
 8. rodar validações.
 
 Validações:
 
 ```bash
-npm run typecheck
-npm run lint
-npm run build
+pnpm typecheck
+pnpm lint
+pnpm build
 ```
 
 Regra:
@@ -1733,9 +1733,9 @@ Antes de mexer:
 
 ```bash
 git status
-npm run typecheck
-npm run lint
-npm run build
+pnpm typecheck
+pnpm lint
+pnpm build
 ```
 
 Criar branch:
@@ -1958,7 +1958,7 @@ Regras absolutas:
 - não altere a rota principal `/` sem explicar antes;
 - não faça mudanças grandes em vários lugares sem plano;
 - sempre explique arquivos que pretende alterar;
-- depois de alterar, rode npm run typecheck, npm run lint e npm run build;
+- depois de alterar, rode pnpm typecheck, pnpm lint e pnpm build;
 - registre decisões relevantes em docs/ACTIVE_DECISIONS.md ou docs/VISUAL_DECISIONS.md.
 
 A prioridade do produto é:
@@ -4126,18 +4126,18 @@ Regra final:
 
 ---
 
-## 86. Auditoria final de lacunas — atualização pós-monorepo, Dev Container e vídeos de Claude
+## 89. Auditoria final de lacunas — atualização pós-monorepo, Dev Container e vídeos de Claude
 
 Esta seção registra uma nova auditoria das conversas e corrige pontos que ainda estavam faltando, contraditórios ou pouco práticos para a construção atual.
 
-### 86.1. Ferramentas de desenvolvimento
+### 89.1. Ferramentas de desenvolvimento
 
 Ferramentas atuais:
 
 - **Claude Code dentro do Dev Container**: executor técnico principal;
 - **ChatGPT**: apoio estratégico, análise, organização de contexto, revisão de produto e criação de prompts.
 
-### 86.2. Estado técnico real atual do projeto
+### 89.2. Estado técnico real atual do projeto
 
 O projeto é um monorepo.
 
@@ -4183,11 +4183,9 @@ pnpm build
 
 Regra atual:
 
-> Em monorepo, os comandos oficiais são `pnpm lint`, `pnpm typecheck` e `pnpm build`, não `npm run ...`.
+> Em monorepo, os comandos oficiais são `pnpm lint`, `pnpm typecheck` e `pnpm build`.
 
-Trechos antigos que ainda mencionam `npm run typecheck`, `npm run lint` e `npm run build` devem ser convertidos para pnpm quando forem usados no projeto novo.
-
-### 86.3. Dev Container como limite de segurança da IA
+### 89.3. Dev Container como limite de segurança da IA
 
 Claude Code deve ser usado preferencialmente dentro do Dev Container.
 
@@ -4211,7 +4209,7 @@ Detalhes operacionais aprendidos:
 - o PATH precisa incluir `~/.local/bin`;
 - a instalação do Claude dentro do container foi validada com `claude --version`.
 
-### 86.4. Arquivos de configuração que não podem ser esquecidos
+### 89.4. Arquivos de configuração que não podem ser esquecidos
 
 Além de `docs/APP_CONTEXT.md`, o projeto precisa preservar:
 
@@ -4233,7 +4231,7 @@ Regras:
 - cache local nunca deve entrar no Git;
 - Git deve existir apenas na raiz do monorepo.
 
-### 86.5. Skills externas/adaptadas que devem ser consideradas
+### 89.5. Skills externas/adaptadas que devem ser consideradas
 
 Além das skills próprias do aplicativo, preservar a ideia de skills externas/adaptadas que já foram discutidas:
 
@@ -4285,7 +4283,7 @@ Regra:
 
 > Skills devem reduzir confusão, não criar burocracia.
 
-### 86.6. Primeira leva real de skills
+### 89.6. Primeira leva real de skills
 
 Não criar todas as skills de uma vez.
 
@@ -4311,7 +4309,7 @@ Depois, conforme a área for construída:
 .claude/skills/beta-feedback/SKILL.md
 ```
 
-### 86.7. Primeira leva real de subagentes
+### 89.7. Primeira leva real de subagentes
 
 Não criar subagentes demais antes de usar.
 
@@ -4340,7 +4338,7 @@ Regra:
 
 > Subagente só deve existir se tiver responsabilidade clara e uso real.
 
-### 86.8. Aprendizado dos vídeos recentes sobre Claude
+### 89.8. Aprendizado dos vídeos recentes sobre Claude
 
 Dos vídeos recentes sobre Claude/Claude Code, aproveitar:
 
@@ -4358,7 +4356,7 @@ Regra adicionada:
 
 > **O projeto não precisa de mais velocidade antes de ter mais direção.**
 
-### 86.9. Design lab e protótipos visuais
+### 89.9. Design lab e protótipos visuais
 
 Para experimentos visuais, preservar a estratégia:
 
@@ -4379,7 +4377,7 @@ Regra:
 
 > Laboratório visual é para decidir melhor, não para virar produto paralelo bagunçado.
 
-### 86.10. Tipografia e leitura confortável
+### 89.10. Tipografia e leitura confortável
 
 Faltava reforçar a decisão sobre tipografia.
 
@@ -4403,7 +4401,7 @@ Regra:
 
 > Tipografia no aplicativo não é decoração; é parte da experiência de leitura.
 
-### 86.11. Acessibilidade e conforto
+### 89.11. Acessibilidade e conforto
 
 Adicionar como requisito explícito:
 
@@ -4421,7 +4419,7 @@ Regra:
 
 > Um aplicativo calmo também precisa ser acessível.
 
-### 86.12. Mobile-first, PWA e uso real
+### 89.12. Mobile-first, PWA e uso real
 
 O aplicativo será web inicialmente, mas deve nascer pensando em celular.
 
@@ -4445,7 +4443,7 @@ Regra:
 
 > O aplicativo precisa funcionar bem na mão do leitor, não só no monitor do desenvolvedor.
 
-### 86.13. Metadados de livros
+### 89.13. Metadados de livros
 
 O modelo de livro precisa prever mais do que título e autor.
 
@@ -4473,7 +4471,7 @@ Regra:
 
 > Metadados ajudam a organizar, mas o cadastro não pode virar formulário cansativo.
 
-### 86.14. Modelo de dados complementar
+### 89.14. Modelo de dados complementar
 
 Além de `books`, `notes` e `reading_sessions`, considerar no planejamento:
 
@@ -4492,7 +4490,7 @@ annotation_positions
 
 Essas entidades não precisam nascer todas no MVP, mas devem orientar a arquitetura para não travar PDF/EPUB/Kindle depois.
 
-### 86.15. Caixa de Entrada Intelectual como primeira camada de captura
+### 89.15. Caixa de Entrada Intelectual como primeira camada de captura
 
 A Caixa de Entrada Intelectual deve ser tratada como peça estratégica.
 
@@ -4507,7 +4505,7 @@ Regra:
 
 > Capturar rápido vem antes de organizar bonito.
 
-### 86.16. Testes e qualidade além de lint/build
+### 89.16. Testes e qualidade além de lint/build
 
 Adicionar plano de QA:
 
@@ -4525,7 +4523,7 @@ Regra:
 
 > Build passando não significa experiência funcionando.
 
-### 86.17. Deploy, ambientes e beta
+### 89.17. Deploy, ambientes e beta
 
 Planejar desde cedo:
 
@@ -4542,7 +4540,7 @@ Regra:
 
 > Nenhum deploy beta sem checklist anti-desastre.
 
-### 86.18. Privacidade e IA dentro do produto
+### 89.18. Privacidade e IA dentro do produto
 
 Quando IA entrar no produto, ela deve ser:
 
@@ -4558,7 +4556,7 @@ Regra:
 
 > IA no produto deve ajudar o leitor a organizar a própria mente, não parecer que o app está tomando posse dela.
 
-### 86.19. Backup, portabilidade e confiança
+### 89.19. Backup, portabilidade e confiança
 
 Além de exportação, registrar:
 
@@ -4572,7 +4570,7 @@ Regra:
 
 > O usuário confia mais quando sabe que pode sair sem perder quem ele foi dentro do aplicativo.
 
-### 86.20. Itens explicitamente fora do escopo do aplicativo principal
+### 89.20. Itens explicitamente fora do escopo do aplicativo principal
 
 Não misturar no MVP:
 
@@ -4589,7 +4587,7 @@ Não misturar no MVP:
 
 Essas conversas são históricas ou pessoais, mas não devem contaminar o produto principal.
 
-### 86.21. Ajuste final de linguagem operacional
+### 89.21. Ajuste final de linguagem operacional
 
 A partir desta auditoria, usar esta hierarquia:
 
@@ -4607,7 +4605,7 @@ Frase final desta auditoria:
 
 ---
 
-## 89. Processo de decisão visual por variações
+## 90. Processo de decisão visual por variações
 
 Antes de implementar telas importantes do aplicativo — especialmente Home, Biblioteca, Modo Leitura, Mural e Mente — seguir este processo:
 
