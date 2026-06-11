@@ -21,10 +21,10 @@ Objetivo: ter contexto, regras e plano escritos antes de qualquer código de pro
 - [x] `docs/WORKFLOW.md`
 - [x] `docs/FUTURE_IDEAS.md`
 - [x] `docs/READING_SOURCES.md`
-- [ ] `docs/AI_AGENTS.md` (quando criar skills/subagentes)
+- [x] `docs/AI_AGENTS.md`
 - [ ] `docs/PRIVACY_AND_COPYRIGHT.md` (quando entrar PDF/Kindle)
-- [ ] `.claude/agents/` preenchido
-- [ ] `.claude/skills/` preenchido
+- [x] `.claude/agents/` (1ª leva: docs-context-curator, product-guardian)
+- [x] `.claude/skills/` (1ª leva: context-update, task-slicing)
 
 ## Fase 0 — Base técnica
 
