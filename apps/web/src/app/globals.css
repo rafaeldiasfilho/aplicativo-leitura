@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
+/*
+  Tokens visuais base do aplicativo.
+  Direção: calma, papel, suave, sem cores gritantes.
+
+  Tema:
+  - padrão "sistema" (segue prefers-color-scheme);
+  - override manual via [data-theme="light"|"dark"] no <html>, aplicado por
+    script antes da hidratação (ver layout.tsx).
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  /* Superfícies */
+  --background: #faf9f7; /* off-white quente, sensação de papel */
+  --surface: #ffffff; /* cartões e blocos elevados */
+  --border: #e7e4df;
+
+  /* Texto */
+  --foreground: #2b2a27; /* quase preto suave, sem contraste agressivo */
+  --muted: #6f6c66; /* texto secundário */
+
+  /* Acento sereno (sálvia) — usar com parcimônia */
+  --accent: #4f6f64;
+  --accent-foreground: #ffffff;
+}
+
+/* Tokens escuros — aplicados pelo tema do sistema (quando não há override claro). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --background: #141413; /* quase preto quente */
+    --surface: #1d1c1a;
+    --border: #2c2a27;
+    --foreground: #ece9e3;
+    --muted: #a3a09a;
+    --accent: #8fb3a5;
+    --accent-foreground: #141413;
+  }
+}
+
+/* Tokens escuros — aplicados pelo tema escuro manual, independente do sistema. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #141413;
+  --surface: #1d1c1a;
+  --border: #2c2a27;
+  --foreground: #ece9e3;
+  --muted: #a3a09a;
+  --accent: #8fb3a5;
+  --accent-foreground: #141413;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
