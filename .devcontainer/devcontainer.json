@@ -1,6 +1,9 @@
 {
   "name": "aplicativo-dev",
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-24-bookworm",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
   "remoteUser": "node",
   "workspaceFolder": "/workspaces/aplicativo",
   "mounts": [
@@ -10,7 +13,7 @@
     "NEXT_TELEMETRY_DISABLED": "1",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
-  "postCreateCommand": "corepack enable && corepack prepare pnpm@10.25.0 --activate && pnpm install",
+  "postCreateCommand": "pnpm install",
   "customizations": {
     "vscode": {
       "extensions": [
