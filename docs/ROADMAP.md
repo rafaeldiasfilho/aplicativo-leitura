@@ -16,8 +16,8 @@ Objetivo: ter contexto, regras e plano escritos antes de qualquer código de pro
 - [x] `docs/ROADMAP.md` (este arquivo)
 - [x] `docs/KANBAN.md`
 - [x] `docs/ACTIVE_DECISIONS.md`
-- [ ] `docs/PRODUCT_PRINCIPLES.md`
-- [ ] `docs/UX_LANGUAGE.md`
+- [x] `docs/PRODUCT_PRINCIPLES.md`
+- [x] `docs/UX_LANGUAGE.md`
 - [ ] `docs/READING_SOURCES.md`
 - [ ] `docs/AI_AGENTS.md`
 - [ ] `docs/PRIVACY_AND_COPYRIGHT.md`
