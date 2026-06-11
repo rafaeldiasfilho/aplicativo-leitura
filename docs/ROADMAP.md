@@ -18,9 +18,11 @@ Objetivo: ter contexto, regras e plano escritos antes de qualquer código de pro
 - [x] `docs/ACTIVE_DECISIONS.md`
 - [x] `docs/PRODUCT_PRINCIPLES.md`
 - [x] `docs/UX_LANGUAGE.md`
-- [ ] `docs/READING_SOURCES.md`
-- [ ] `docs/AI_AGENTS.md`
-- [ ] `docs/PRIVACY_AND_COPYRIGHT.md`
+- [x] `docs/WORKFLOW.md`
+- [x] `docs/FUTURE_IDEAS.md`
+- [x] `docs/READING_SOURCES.md`
+- [ ] `docs/AI_AGENTS.md` (quando criar skills/subagentes)
+- [ ] `docs/PRIVACY_AND_COPYRIGHT.md` (quando entrar PDF/Kindle)
 - [ ] `.claude/agents/` preenchido
 - [ ] `.claude/skills/` preenchido
 
