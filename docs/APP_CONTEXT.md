@@ -1,7 +1,7 @@
 # APP_CONTEXT_MASTER — Contexto Mestre Profundo do Aplicativo
 
 **Última atualização:** 2026-06-11 — contexto mestre ampliado com auditoria profunda de lacunas: leitura física/digital, PDF/EPUB/Kindle, plataformas futuras, skills, subagentes, beta, monetização, Home e Mente  
-**Uso recomendado:** este é o documento principal para orientar e proteger o projeto no Claude Code, no Codex, no VS Code e em qualquer implementação.
+**Uso recomendado:** este é o documento principal para orientar e proteger o projeto no Claude Code, no VS Code e em qualquer implementação.
 
 > Este documento não é uma transcrição literal de todos os chats. Ele consolida, aprofunda e organiza as decisões, ideias, regras, aprendizados, correções, hipóteses e caminhos definidos nas conversas sobre o aplicativo. Quando houver conflito entre uma ideia antiga e uma decisão mais recente, a decisão mais recente deve prevalecer.
 
@@ -261,14 +261,13 @@ A estrutura principal deve tender a 4 áreas:
 
 1. **Início**
 2. **Biblioteca**
-3. **Mural**
+3. **Anotações**
 4. **Mente**
 
-Com um botão central **“+”** para adicionar rapidamente.
+Com um botão central **“+”** para adicionar rapidamente. O **Mural** é acessado de dentro do Modo Leitura, não como aba principal.
 
 Áreas secundárias que podem ficar escondidas em menu/configurações:
 
-- Anotações;
 - Exportar;
 - Lixeira;
 - Atalhos;
@@ -1130,7 +1129,7 @@ Stack definida/planejada:
 - Supabase;
 - Git/GitHub;
 - Vercel possivelmente para deploy;
-- Claude Code/Codex/ChatGPT como apoio;
+- Claude Code/ChatGPT como apoio;
 - Linux como ambiente de desenvolvimento.
 
 Páginas/áreas já existentes ou planejadas:
@@ -1290,7 +1289,6 @@ Não é schema final, mas o projeto provavelmente precisa de entidades como:
 Ferramentas discutidas:
 
 - ChatGPT;
-- Codex;
 - Claude Code;
 - VS Code;
 - Linux/WSL.
@@ -1842,7 +1840,7 @@ Caminho correto:
 - Menos botões na Home.
 - Mais foco no livro atual.
 - Menos áreas na navegação principal.
-- Mural e Mente como áreas especiais, não menus técnicos.
+- Mente como área especial; Mural acessado de dentro do Modo Leitura.
 - Exportar/Lixeira/Atalhos/Perfil em área secundária.
 - Estatísticas escondidas ou sutis.
 - IA escondida atrás de benefícios, não exposta como “olha a IA”.
@@ -3386,3 +3384,1249 @@ Não implemente ainda.
 ## 85. Frase final reforçada
 
 > **Não importa onde a pessoa leu: físico, PDF, EPUB, Kindle ou outra plataforma. O aplicativo deve guardar com calma o que aquela leitura despertou nela.**
+
+---
+
+## 86. Skills externas/adaptadas e skills próprias do aplicativo
+
+Esta seção consolida skills que já tinham sido mencionadas ou lembradas nas conversas, incluindo skills inspiradas em materiais externos sobre Claude Code. Skills antigas devem ser traduzidas para Claude Code dentro do Dev Container.
+
+### 86.1. Decisão sobre origem das skills
+
+As skills podem vir de três lugares:
+
+1. **Skills externas/adaptadas** — ideias conhecidas da comunidade, adaptadas ao aplicativo.
+2. **Skills próprias do produto** — criadas para proteger UX, leitura, Mural, Mente, PDF, Kindle/importações, beta e monetização.
+3. **Skills de engenharia** — criadas para validação, revisão, release, documentação e segurança.
+
+Regra:
+
+> Não instalar skills aleatórias em massa. Primeiro entender o papel de cada uma, adaptar ao contexto do aplicativo e criar versões próprias quando necessário.
+
+### 86.2. Skill `grill-with-docs` — corrigindo o nome lembrado
+
+O nome lembrado como `grill-with-dock` provavelmente se refere a:
+
+```text
+grill-with-docs
+```
+
+Função adaptada ao aplicativo:
+
+> Entrevistar o usuário com perguntas difíceis sobre uma decisão ou plano, comparando a ideia com `docs/APP_CONTEXT.md`, `docs/ACTIVE_DECISIONS.md`, `docs/ROADMAP.md` e decisões existentes, até chegar em entendimento claro antes de implementar.
+
+Quando usar:
+
+- antes de uma feature grande;
+- antes de mexer em PDF/EPUB/Kindle/importações;
+- antes de definir Supabase/auth/RLS;
+- antes de escolher Home/Mente/Mural definitivos;
+- quando o pedido estiver vago;
+- quando houver risco de contradizer o contexto mestre.
+
+Como adaptar para nosso projeto:
+
+```text
+.claude/skills/grill-with-docs/SKILL.md
+```
+
+Regras específicas:
+
+- usar `docs/APP_CONTEXT.md` como fonte de verdade;
+- perguntar uma coisa por vez;
+- sugerir uma resposta recomendada quando fizer sentido;
+- não implementar código durante a entrevista;
+- transformar decisões finais em `docs/ACTIVE_DECISIONS.md`;
+- se a decisão for arquitetural e difícil de reverter, sugerir ADR em `docs/adr/`.
+
+### 86.3. Skill `grill-me`
+
+Função:
+
+> Entrevistar o usuário intensamente sobre uma ideia ainda imatura, mesmo sem código ou sem documentação suficiente, até revelar requisitos, dúvidas, riscos e decisões escondidas.
+
+Quando usar:
+
+- quando surgir uma ideia nova;
+- antes de decidir monetização;
+- antes de mudar nome/marca;
+- antes de mudar experiência principal;
+- antes de transformar ideia futura em roadmap.
+
+Diferença prática:
+
+- `grill-me`: boa para ideia bruta, sem depender de codebase.
+- `grill-with-docs`: melhor quando já existe contexto/documentação do projeto.
+
+No nosso caso:
+
+> Para o aplicativo, usar `grill-with-docs` como padrão e `grill-me` quando a ideia ainda estiver muito aberta.
+
+### 86.4. Skill `write-a-prd`
+
+Função:
+
+> Transformar uma decisão ou ideia validada em PRD curto e acionável.
+
+Quando usar:
+
+- após `grill-with-docs`;
+- antes de implementar uma feature;
+- para definir Home, Modo Leitura, Mural, Mente, PDF Reader, Importação Kindle, Beta ou Exportação.
+
+Saída esperada:
+
+- problema;
+- objetivo;
+- usuários;
+- escopo;
+- fora de escopo;
+- fluxo principal;
+- critérios de pronto;
+- riscos;
+- métricas;
+- dependências.
+
+Arquivo sugerido:
+
+```text
+docs/prd/<nome-da-feature>.md
+```
+
+### 86.5. Skill `prd-to-kanban` / `prd-to-issues`
+
+Função:
+
+> Quebrar PRD em tarefas pequenas, revisáveis e testáveis.
+
+Como adaptar:
+
+- usar `docs/KANBAN.md` em vez de depender de GitHub Issues no começo;
+- depois, se o projeto usar GitHub Issues, converter tarefas para issues.
+
+Regra:
+
+> Nenhuma tarefa deve misturar produto, banco, UI, segurança e deploy ao mesmo tempo.
+
+### 86.6. Skill `task-slicing`
+
+Função:
+
+> Quebrar pedido grande em fatias pequenas antes da implementação.
+
+Obrigatória quando o usuário pedir algo como:
+
+- “crie a Home”;
+- “faça o Mural”;
+- “adicione Supabase”;
+- “crie leitura por PDF”;
+- “faça a Mente”.
+
+Saída esperada:
+
+- fatias;
+- ordem;
+- arquivos prováveis;
+- riscos;
+- validações;
+- o que não será feito agora.
+
+### 86.7. Skill `context-update`
+
+Função:
+
+> Atualizar documentação quando uma decisão muda, sem duplicar e sem contradizer decisões anteriores.
+
+Arquivos possíveis:
+
+- `docs/APP_CONTEXT.md`;
+- `docs/ACTIVE_DECISIONS.md`;
+- `docs/KANBAN.md`;
+- `docs/VISUAL_DECISIONS.md`;
+- `docs/ROADMAP.md`;
+- `docs/AI_AGENTS.md`.
+
+Regra:
+
+> Toda decisão importante sai da conversa e entra no repositório.
+
+### 86.8. Skill `clean-ui-review`
+
+Função:
+
+> Revisar se uma tela continua calma, limpa e fácil de usar.
+
+Checar:
+
+- excesso de cards;
+- excesso de botões;
+- hierarquia fraca;
+- linguagem fria;
+- dashboard corporativo;
+- poluição visual;
+- funções secundárias ocupando espaço demais;
+- se a tela ajuda a ler/anotar/revisitar.
+
+### 86.9. Skill `visual-decision`
+
+Função:
+
+> Comparar variações visuais e registrar decisão com motivo.
+
+Quando usar:
+
+- Home;
+- Biblioteca;
+- Mente;
+- Mural;
+- tela de leitura;
+- leitor PDF;
+- cards de anotação;
+- cérebro visual.
+
+Arquivo:
+
+```text
+docs/VISUAL_DECISIONS.md
+```
+
+### 86.10. Skill `reading-session-timer`
+
+Função:
+
+> Proteger o contador real de leitura.
+
+Regras obrigatórias:
+
+- contar somente quando ativo;
+- pausar quando usuário pausa;
+- continuar quando Mural abre;
+- finalizar com resumo;
+- não perder sessão;
+- separar tempo real do tempo estimado.
+
+### 86.11. Skill `mural-layout`
+
+Função:
+
+> Proteger regras do Mural.
+
+Regras obrigatórias:
+
+- até 5 balões sugeridos;
+- posições fixas por sessão;
+- não sobrepor balões escritos;
+- sugestões restantes continuam no mesmo lugar;
+- nova anotação começa no centro;
+- Mural não pausa timer.
+
+### 86.12. Skill `supabase-rls-check`
+
+Função:
+
+> Revisar mudanças em Supabase, auth, RLS, Storage e schema.
+
+Obrigatória antes de:
+
+- criar tabela;
+- criar migração;
+- alterar tipos;
+- mexer em login;
+- mexer em storage;
+- criar beta/admin;
+- publicar dados.
+
+Regra:
+
+> Nenhuma alteração em banco/auth/RLS sem autorização humana explícita.
+
+### 86.13. Skill `pdf-reader-plan`
+
+Função:
+
+> Planejar leitura por PDF sem transformar o app em editor pesado.
+
+Checar:
+
+- privacidade;
+- storage privado;
+- vínculo com livro;
+- página atual;
+- anotações por página;
+- sessão de leitura;
+- UX calma;
+- sem compartilhamento de PDFs;
+- sem promessa de DRM bypass.
+
+### 86.14. Skill `kindle-import-plan`
+
+Função:
+
+> Planejar importação manual/revisável de destaques Kindle e outras plataformas.
+
+Checar:
+
+- importação manual primeiro;
+- prévia antes de salvar;
+- Caixa de Entrada Intelectual;
+- sem promessa de sincronização automática;
+- sem depender tecnicamente da Amazon no MVP.
+
+### 86.15. Skill `export-system`
+
+Função:
+
+> Garantir exportação organizada, bonita, privada e essencial para todos.
+
+Regra:
+
+> Exportação não é Premium. É confiança.
+
+### 86.16. Skill `beta-feedback`
+
+Função:
+
+> Preparar e revisar fluxo de feedback beta.
+
+Checar:
+
+- contas individuais;
+- feedback com ideias/sugestões/críticas;
+- tom humano;
+- agradecimento;
+- usuário por nome, não e-mail;
+- painel/admin futuro.
+
+### 86.17. Skill `release-checklist`
+
+Função:
+
+> Validar tarefa antes de considerar pronta.
+
+Checar:
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+git status
+git diff
+```
+
+E também:
+
+- não quebrou UX;
+- não poluiu interface;
+- não mexeu em banco sem permissão;
+- documentação atualizada;
+- commit claro.
+
+### 86.18. Skill `startup-enxuta-check`
+
+Função:
+
+> Verificar se a tarefa ajuda a validar o ciclo mínimo ou se é vaidade/complexidade cedo demais.
+
+Perguntas:
+
+- isso ajuda o usuário a cadastrar livro, ler, anotar, revisar e voltar?
+- isso deve entrar no MVP?
+- isso é aprendizado validável ou polimento prematuro?
+- dá para testar com beta?
+
+### 86.19. Skill `privacy-copyright-check`
+
+Função:
+
+> Revisar riscos de privacidade e direitos autorais em PDF, EPUB, OCR, Kindle/importações e IA.
+
+Regras:
+
+- uploads privados;
+- sem compartilhamento de livros;
+- sem quebrar DRM;
+- sem usar conteúdo do usuário sem consentimento;
+- exclusão respeitada;
+- dados por usuário.
+
+### 86.20. Skill `docs-to-architecture`
+
+Função:
+
+> Transformar documentação de produto em arquitetura técnica simples, sem implementar ainda.
+
+Quando usar:
+
+- depois de PRD;
+- antes de criar feature complexa;
+- antes de Supabase;
+- antes de PDF/EPUB.
+
+Saída:
+
+- rotas;
+- componentes;
+- entidades;
+- estados;
+- riscos;
+- validações;
+- ordem de implementação.
+
+---
+
+## 87. Subagentes consolidados e adaptados para Claude Code
+
+Esta seção consolida os subagentes. Nomes antigos como `serene-ux-auditor`, `serene-code-reviewer` e `serene-supabase-guardian` devem ser tratados como histórico e convertidos para agentes Claude Code em `.claude/agents/`.
+
+### 87.1. Subagentes mínimos para começar
+
+Não criar todos os subagentes de uma vez. Começar com poucos e úteis.
+
+Primeiros subagentes recomendados:
+
+```text
+.claude/agents/product-guardian.md
+.claude/agents/frontend-nextjs-architect.md
+.claude/agents/docs-context-curator.md
+.claude/agents/qa-regression-tester.md
+```
+
+### 87.2. product-guardian
+
+Função:
+
+> Proteger a essência do aplicativo.
+
+Responsável por:
+
+- calma;
+- clareza;
+- foco em leitura;
+- não poluir;
+- evitar produtividade pesada;
+- decidir se algo entra no MVP ou fica para depois;
+- proteger monetização justa;
+- manter “o coração do app para todos”.
+
+Usar quando:
+
+- surgir feature nova;
+- mudar fluxo principal;
+- mexer em premium;
+- mudar Home, Mente, Mural ou Modo Leitura;
+- houver risco de app virar dashboard.
+
+### 87.3. frontend-nextjs-architect
+
+Função:
+
+> Manter frontend limpo, consistente e sustentável.
+
+Responsável por:
+
+- Next.js App Router;
+- TypeScript;
+- Tailwind;
+- estrutura de componentes;
+- acessibilidade;
+- estado client/server;
+- design system mínimo;
+- evitar gambiarra visual.
+
+Usar quando:
+
+- criar rotas;
+- criar layout;
+- criar componentes base;
+- mexer em UI;
+- organizar `apps/web`.
+
+### 87.4. docs-context-curator
+
+Função:
+
+> Manter documentação viva e sem contradição.
+
+Responsável por:
+
+- `docs/APP_CONTEXT.md`;
+- `docs/ACTIVE_DECISIONS.md`;
+- `docs/KANBAN.md`;
+- `docs/ROADMAP.md`;
+- `docs/VISUAL_DECISIONS.md`;
+- registrar decisões novas;
+- evitar duplicação e conflito.
+
+Usar quando:
+
+- decisão nova surgir;
+- feature mudar escopo;
+- feedback beta gerar aprendizado;
+- vídeo/blog/fonte externa for aproveitado.
+
+### 87.5. qa-regression-tester
+
+Função:
+
+> Impedir que uma mudança quebre outra parte do app.
+
+Responsável por:
+
+- `pnpm lint`;
+- `pnpm typecheck`;
+- `pnpm build`;
+- fluxo leitura → anotação → finalizar → revisar;
+- regressões visuais;
+- rotas quebradas;
+- checklist antes de commit.
+
+Usar:
+
+- no final de toda tarefa;
+- antes de commit;
+- depois de refatoração;
+- antes de deploy/beta.
+
+### 87.6. ux-cleanliness-reviewer
+
+Função:
+
+> Auditar a experiência visual com foco em calma e simplicidade.
+
+Responsável por:
+
+- excesso de cards;
+- excesso de botões;
+- UI fria/corporativa;
+- hierarquia ruim;
+- espaços invisíveis clicáveis;
+- post-its e marca-textos sem identidade;
+- Home sem foco em livros em leitura.
+
+Usar:
+
+- ao criar Home;
+- Biblioteca;
+- Mural;
+- Mente;
+- Leitura;
+- PDF Reader.
+
+### 87.7. backend-supabase-rls
+
+Função:
+
+> Proteger banco, auth, RLS, Storage e dados do usuário.
+
+Responsável por:
+
+- schema;
+- migrações;
+- tipos TypeScript;
+- RLS;
+- isolamento por usuário;
+- storage privado;
+- erros de schema cache;
+- beta/admin seguro.
+
+Usar:
+
+- somente quando Supabase entrar;
+- antes de qualquer migração;
+- antes de auth;
+- antes de storage;
+- antes de beta/admin.
+
+### 87.8. reading-sources-architect
+
+Função:
+
+> Modelar fontes de leitura.
+
+Responsável por:
+
+- livro físico;
+- PDF;
+- EPUB;
+- Kindle/importações;
+- OCR;
+- histórico já lido;
+- tempo real vs tempo estimado;
+- Caixa de Entrada Intelectual.
+
+Usar:
+
+- antes de PDF Reader;
+- antes de EPUB;
+- antes de importações Kindle;
+- ao modelar `reading_sources`.
+
+### 87.9. pdf-epub-reader-engineer
+
+Função:
+
+> Planejar e implementar leitor interno quando chegar a fase certa.
+
+Responsável por:
+
+- PDF viewer;
+- EPUB viewer sem DRM;
+- posição/página;
+- anotações ligadas a página/trecho;
+- progresso;
+- integração com sessão;
+- UX sem parecer editor técnico.
+
+Usar:
+
+- fase PDF/EPUB;
+- não usar no MVP inicial, exceto planejamento.
+
+### 87.10. privacy-copyright-reviewer
+
+Função:
+
+> Revisar privacidade e direitos autorais.
+
+Responsável por:
+
+- PDFs privados;
+- EPUB sem DRM;
+- importações Kindle;
+- OCR;
+- IA sobre conteúdo do usuário;
+- exclusão de dados;
+- armazenamento seguro.
+
+Usar:
+
+- antes de upload de arquivos;
+- antes de PDF/EPUB;
+- antes de OCR;
+- antes de IA em conteúdo do usuário.
+
+### 87.11. beta-feedback-analyst
+
+Função:
+
+> Transformar feedback beta em aprendizado acionável.
+
+Responsável por:
+
+- agrupar feedback;
+- detectar padrões;
+- separar gosto pessoal de problema real;
+- transformar em hipótese;
+- atualizar Kanban/roadmap.
+
+Usar:
+
+- fase beta;
+- após rodadas com usuários reais.
+
+### 87.12. ai-workflow-orchestrator
+
+Função:
+
+> Decidir qual skill/subagente chamar para cada tarefa, sem inflar contexto.
+
+Responsável por:
+
+- escolher especialistas;
+- manter escopo pequeno;
+- evitar chamar todos os agentes sempre;
+- garantir método: contexto → especificação → tarefa pequena → validação → documentação → commit.
+
+Usar:
+
+- no início de tarefas médias/grandes;
+- quando houver dúvida sobre quem deve revisar.
+
+### 87.13. Subagentes antigos convertidos
+
+| Antigo | Novo em Claude Code | Observação |
+|---|---|---|
+| `serene-ux-auditor` | `ux-cleanliness-reviewer` | Mantém foco em UI calma e limpa |
+| `serene-code-reviewer` | `frontend-nextjs-architect` + `qa-regression-tester` | Separar arquitetura de validação |
+| `serene-supabase-guardian` | `backend-supabase-rls` | Usar só quando Supabase entrar |
+| `serene-product-rules` skill | `product-guardian` + skill `context-update` | Regras de produto viram agente + skill |
+
+---
+
+## 88. Ordem correta para criar skills e subagentes no projeto
+
+Não criar tudo de uma vez. Ordem recomendada:
+
+### Etapa 1 — Fundacionais
+
+Criar primeiro:
+
+```text
+.claude/skills/grill-with-docs/SKILL.md
+.claude/skills/task-slicing/SKILL.md
+.claude/skills/context-update/SKILL.md
+.claude/skills/release-checklist/SKILL.md
+
+.claude/agents/product-guardian.md
+.claude/agents/frontend-nextjs-architect.md
+.claude/agents/docs-context-curator.md
+.claude/agents/qa-regression-tester.md
+```
+
+### Etapa 2 — UX e produto
+
+Depois:
+
+```text
+.claude/skills/clean-ui-review/SKILL.md
+.claude/skills/visual-decision/SKILL.md
+.claude/skills/startup-enxuta-check/SKILL.md
+
+.claude/agents/ux-cleanliness-reviewer.md
+```
+
+### Etapa 3 — Leitura
+
+Depois:
+
+```text
+.claude/skills/reading-session-timer/SKILL.md
+.claude/skills/mural-layout/SKILL.md
+
+.claude/agents/reading-sources-architect.md
+```
+
+### Etapa 4 — Banco e arquivos
+
+Só quando entrar Supabase/PDF/EPUB:
+
+```text
+.claude/skills/supabase-rls-check/SKILL.md
+.claude/skills/pdf-reader-plan/SKILL.md
+.claude/skills/kindle-import-plan/SKILL.md
+.claude/skills/privacy-copyright-check/SKILL.md
+
+.claude/agents/backend-supabase-rls.md
+.claude/agents/pdf-epub-reader-engineer.md
+.claude/agents/privacy-copyright-reviewer.md
+```
+
+### Etapa 5 — Beta
+
+Quando o beta estiver perto:
+
+```text
+.claude/skills/beta-feedback/SKILL.md
+.claude/agents/beta-feedback-analyst.md
+```
+
+Regra final:
+
+> Skills e subagentes existem para reduzir bagunça, não para criar burocracia. Se a ferramenta atrapalhar a construção, simplificar.
+
+---
+
+## 86. Auditoria final de lacunas — atualização pós-monorepo, Dev Container e vídeos de Claude
+
+Esta seção registra uma nova auditoria das conversas e corrige pontos que ainda estavam faltando, contraditórios ou pouco práticos para a construção atual.
+
+### 86.1. Ferramentas de desenvolvimento
+
+Ferramentas atuais:
+
+- **Claude Code dentro do Dev Container**: executor técnico principal;
+- **ChatGPT**: apoio estratégico, análise, organização de contexto, revisão de produto e criação de prompts.
+
+### 86.2. Estado técnico real atual do projeto
+
+O projeto é um monorepo.
+
+Estado atual consolidado:
+
+```text
+~/Projetos/aplicativo
+├── apps/web
+├── packages
+├── docs
+├── .claude/agents
+├── .claude/skills
+├── .devcontainer
+├── package.json
+├── pnpm-workspace.yaml
+├── turbo.json
+└── pnpm-lock.yaml
+```
+
+Stack real inicial:
+
+- Linux como ambiente principal;
+- Docker Engine;
+- VS Code com Dev Containers;
+- Dev Container próprio usando `node:24-bookworm`;
+- Node 24.16.0;
+- pnpm 10.25.0;
+- Turborepo;
+- Next.js 16;
+- React 19;
+- TypeScript;
+- Tailwind CSS;
+- ESLint;
+- Claude Code 2.1.173 instalado dentro do container.
+
+Validações já passaram dentro do container:
+
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+```
+
+Regra atual:
+
+> Em monorepo, os comandos oficiais são `pnpm lint`, `pnpm typecheck` e `pnpm build`, não `npm run ...`.
+
+Trechos antigos que ainda mencionam `npm run typecheck`, `npm run lint` e `npm run build` devem ser convertidos para pnpm quando forem usados no projeto novo.
+
+### 86.3. Dev Container como limite de segurança da IA
+
+Claude Code deve ser usado preferencialmente dentro do Dev Container.
+
+Motivos:
+
+- isolar ambiente de desenvolvimento;
+- reproduzir dependências;
+- reduzir risco de comandos afetarem o sistema inteiro;
+- manter Node/pnpm/Turbo previsíveis;
+- permitir que o Claude rode validações no mesmo ambiente do projeto.
+
+Regra:
+
+> Claude Code no host Linux pode existir, mas o Claude principal do projeto deve ser o Claude Code dentro do Dev Container.
+
+Detalhes operacionais aprendidos:
+
+- a imagem `mcr.microsoft.com/devcontainers/typescript-node:1-24-bookworm` falhou por não existir;
+- o caminho correto foi criar `.devcontainer/Dockerfile` com `FROM node:24-bookworm`;
+- a pasta `~/.claude` dentro do container precisa estar com permissão do usuário `node`;
+- o PATH precisa incluir `~/.local/bin`;
+- a instalação do Claude dentro do container foi validada com `claude --version`.
+
+### 86.4. Arquivos de configuração que não podem ser esquecidos
+
+Além de `docs/APP_CONTEXT.md`, o projeto precisa preservar:
+
+```text
+CLAUDE.md
+AGENTS.md
+.devcontainer/Dockerfile
+.devcontainer/devcontainer.json
+.gitignore
+.claude/agents/
+.claude/skills/
+```
+
+Regras:
+
+- `.turbo/` não deve ser commitado;
+- `node_modules/` não deve ser commitado;
+- `.env` não deve ser commitado;
+- cache local nunca deve entrar no Git;
+- Git deve existir apenas na raiz do monorepo.
+
+### 86.5. Skills externas/adaptadas que devem ser consideradas
+
+Além das skills próprias do aplicativo, preservar a ideia de skills externas/adaptadas que já foram discutidas:
+
+#### grill-with-docs
+
+Função: confrontar planos contra a documentação existente antes de implementar.
+
+Uso no projeto:
+
+- revisar se uma tarefa contradiz `docs/APP_CONTEXT.md`;
+- checar se a nomenclatura bate com decisões já registradas;
+- transformar dúvidas em atualização de contexto;
+- evitar que a IA implemente algo desalinhado.
+
+#### grill-me
+
+Função: questionar uma ideia com perguntas sucessivas antes de decidir.
+
+Uso no projeto:
+
+- quando a ideia estiver vaga;
+- antes de criar função grande;
+- antes de mexer em arquitetura;
+- antes de decidir monetização, UX crítica ou integração externa.
+
+#### write-a-prd
+
+Função: transformar uma intenção em PRD curto e executável.
+
+Uso no projeto:
+
+- antes de Home;
+- antes de Modo Leitura;
+- antes de PDF reader;
+- antes de importação Kindle;
+- antes de beta fechado.
+
+#### prd-to-kanban / prd-to-issues
+
+Função: transformar PRD aprovado em tarefas pequenas.
+
+Uso no projeto:
+
+- criar tarefas em `docs/KANBAN.md`;
+- separar MVP, depois e futuro;
+- evitar pedidos gigantes para Claude Code.
+
+Regra:
+
+> Skills devem reduzir confusão, não criar burocracia.
+
+### 86.6. Primeira leva real de skills
+
+Não criar todas as skills de uma vez.
+
+Criar primeiro:
+
+```text
+.claude/skills/grill-with-docs/SKILL.md
+.claude/skills/task-slicing/SKILL.md
+.claude/skills/context-update/SKILL.md
+.claude/skills/release-checklist/SKILL.md
+```
+
+Depois, conforme a área for construída:
+
+```text
+.claude/skills/clean-ui-review/SKILL.md
+.claude/skills/visual-decision/SKILL.md
+.claude/skills/reading-session-timer/SKILL.md
+.claude/skills/mural-layout/SKILL.md
+.claude/skills/supabase-rls-check/SKILL.md
+.claude/skills/pdf-reader-plan/SKILL.md
+.claude/skills/kindle-import-plan/SKILL.md
+.claude/skills/beta-feedback/SKILL.md
+```
+
+### 86.7. Primeira leva real de subagentes
+
+Não criar subagentes demais antes de usar.
+
+Criar primeiro:
+
+```text
+.claude/agents/product-guardian.md
+.claude/agents/frontend-nextjs-architect.md
+.claude/agents/docs-context-curator.md
+.claude/agents/qa-regression-tester.md
+```
+
+Depois, conforme necessário:
+
+```text
+.claude/agents/ux-cleanliness-reviewer.md
+.claude/agents/backend-supabase-rls.md
+.claude/agents/reading-sources-architect.md
+.claude/agents/pdf-epub-reader-engineer.md
+.claude/agents/privacy-copyright-reviewer.md
+.claude/agents/beta-feedback-analyst.md
+.claude/agents/ai-workflow-orchestrator.md
+```
+
+Regra:
+
+> Subagente só deve existir se tiver responsabilidade clara e uso real.
+
+### 86.8. Aprendizado dos vídeos recentes sobre Claude
+
+Dos vídeos recentes sobre Claude/Claude Code, aproveitar:
+
+- Claude Code precisa de contexto e regras, não apenas prompt solto;
+- `CLAUDE.md` deve ser curto, operacional e apontar para docs maiores;
+- documentação viva vale mais que conversa perdida;
+- Claude deve ajudar a pensar antes de codar;
+- usar Claude para clareza, PRD, revisão, tarefas e validação;
+- não automatizar commit, deploy, banco ou produção no começo;
+- hooks podem ser úteis, mas devem vir depois;
+- MCPs podem ser úteis, mas só depois de estabilizar o workflow;
+- skills e subagentes devem ser criados aos poucos.
+
+Regra adicionada:
+
+> **O projeto não precisa de mais velocidade antes de ter mais direção.**
+
+### 86.9. Design lab e protótipos visuais
+
+Para experimentos visuais, preservar a estratégia:
+
+- criar uma área de laboratório visual para testar Home, Biblioteca, Mente e Mural sem banco;
+- não misturar variações experimentais na rota principal sem decisão;
+- registrar cada variação em `docs/VISUAL_DECISIONS.md`;
+- escolher por clareza, calma e utilidade, não por quantidade de efeitos.
+
+Possível rota futura:
+
+```text
+/design-lab/home
+/design-lab/mente
+/design-lab/mural
+```
+
+Regra:
+
+> Laboratório visual é para decidir melhor, não para virar produto paralelo bagunçado.
+
+### 86.10. Tipografia e leitura confortável
+
+Faltava reforçar a decisão sobre tipografia.
+
+A tipografia precisa transmitir:
+
+- calma;
+- legibilidade;
+- conforto;
+- leitura longa sem cansaço;
+- sensação premium discreta.
+
+Direção:
+
+- usar uma fonte sem serifa limpa para interface;
+- considerar uma fonte com mais personalidade para trechos de leitura, citações ou reflexões;
+- testar tamanho, espaçamento e altura de linha;
+- preparar modo leitura com conforto visual;
+- respeitar tema claro, escuro e preferência do sistema.
+
+Regra:
+
+> Tipografia no aplicativo não é decoração; é parte da experiência de leitura.
+
+### 86.11. Acessibilidade e conforto
+
+Adicionar como requisito explícito:
+
+- contraste adequado;
+- foco visível por teclado;
+- navegação por teclado em ações principais;
+- áreas clicáveis sem “espaço invisível” sobrando;
+- suporte a `prefers-reduced-motion`;
+- tamanhos de fonte confortáveis;
+- estados vazios acolhedores;
+- mensagens de erro humanas;
+- responsividade mobile desde o começo.
+
+Regra:
+
+> Um aplicativo calmo também precisa ser acessível.
+
+### 86.12. Mobile-first, PWA e uso real
+
+O aplicativo será web inicialmente, mas deve nascer pensando em celular.
+
+Motivos:
+
+- o usuário pode ler fora do computador;
+- pode querer registrar página rapidamente;
+- pode tirar foto da capa/post-it;
+- pode capturar pensamento rápido durante leitura física;
+- beta testers provavelmente usarão celular.
+
+Direção:
+
+- layout responsivo desde o início;
+- botão `+` acessível no mobile;
+- fluxo de anotação em poucos toques;
+- PWA como possibilidade futura;
+- widgets/atalhos rápidos como futuro.
+
+Regra:
+
+> O aplicativo precisa funcionar bem na mão do leitor, não só no monitor do desenvolvedor.
+
+### 86.13. Metadados de livros
+
+O modelo de livro precisa prever mais do que título e autor.
+
+Campos possíveis:
+
+- título;
+- subtítulo;
+- autor;
+- editora;
+- edição;
+- idioma;
+- ISBN;
+- total de páginas;
+- capa;
+- status;
+- origem;
+- formato: físico, PDF, EPUB, Kindle/importado, histórico;
+- data de início;
+- data de conclusão;
+- página atual;
+- avaliação pessoal opcional;
+- nota privada opcional.
+
+Regra:
+
+> Metadados ajudam a organizar, mas o cadastro não pode virar formulário cansativo.
+
+### 86.14. Modelo de dados complementar
+
+Além de `books`, `notes` e `reading_sessions`, considerar no planejamento:
+
+```text
+reading_sources
+uploaded_documents
+inbox_items
+imports
+attachments
+trash_items
+export_jobs
+user_preferences
+reading_positions
+annotation_positions
+```
+
+Essas entidades não precisam nascer todas no MVP, mas devem orientar a arquitetura para não travar PDF/EPUB/Kindle depois.
+
+### 86.15. Caixa de Entrada Intelectual como primeira camada de captura
+
+A Caixa de Entrada Intelectual deve ser tratada como peça estratégica.
+
+Motivo:
+
+- permite capturar sem organizar;
+- reduz atrito;
+- recebe foto, OCR, Kindle, PDF, EPUB, nota solta, áudio futuro;
+- evita que o usuário precise decidir tudo na hora.
+
+Regra:
+
+> Capturar rápido vem antes de organizar bonito.
+
+### 86.16. Testes e qualidade além de lint/build
+
+Adicionar plano de QA:
+
+- teste manual do ciclo principal;
+- teste do timer;
+- teste de pausar/retomar/finalizar;
+- teste de Mural não pausar timer;
+- teste de criar/anotar/revisar;
+- teste de lixeira/restauração;
+- teste de isolamento usuário A/B quando Supabase entrar;
+- smoke test de rotas principais;
+- Playwright no futuro para fluxos críticos.
+
+Regra:
+
+> Build passando não significa experiência funcionando.
+
+### 86.17. Deploy, ambientes e beta
+
+Planejar desde cedo:
+
+- ambiente local;
+- ambiente preview;
+- ambiente beta/staging;
+- ambiente produção futura;
+- variáveis separadas;
+- Supabase dev/staging/prod quando possível;
+- deploy controlado na Vercel ou alternativa;
+- beta fechado antes de público.
+
+Regra:
+
+> Nenhum deploy beta sem checklist anti-desastre.
+
+### 86.18. Privacidade e IA dentro do produto
+
+Quando IA entrar no produto, ela deve ser:
+
+- explícita;
+- revisável;
+- não invasiva;
+- sem salvar resultado automático sem confirmação;
+- sem usar dados do usuário de forma obscura;
+- com privacidade clara;
+- com opção de correção.
+
+Regra:
+
+> IA no produto deve ajudar o leitor a organizar a própria mente, não parecer que o app está tomando posse dela.
+
+### 86.19. Backup, portabilidade e confiança
+
+Além de exportação, registrar:
+
+- usuário deve conseguir levar suas anotações;
+- exportação deve existir desde cedo;
+- exclusão deve ser clara;
+- backup não pode ser promessa vazia;
+- cancelamento não pode sequestrar memórias.
+
+Regra:
+
+> O usuário confia mais quando sabe que pode sair sem perder quem ele foi dentro do aplicativo.
+
+### 86.20. Itens explicitamente fora do escopo do aplicativo principal
+
+Não misturar no MVP:
+
+- RD Engenharia;
+- DiasStore/DiasTech;
+- automação de vídeos TikTok;
+- PC/jogos/hardware;
+- app profissional de oportunidades;
+- rede social pública;
+- marketplace;
+- comunidade pública;
+- audiobooks como player;
+- integração Spotify/YouTube como player.
+
+Essas conversas são históricas ou pessoais, mas não devem contaminar o produto principal.
+
+### 86.21. Ajuste final de linguagem operacional
+
+A partir desta auditoria, usar esta hierarquia:
+
+```text
+Produto: “o aplicativo”
+Ferramenta técnica principal: Claude Code no Dev Container
+Apoio estratégico: ChatGPT
+Aprendizados históricos: Akita, vídeos
+Projeto atual: monorepo
+```
+
+Frase final desta auditoria:
+
+> **O aplicativo deve nascer pequeno, mas com arquitetura mental grande o suficiente para não trair a visão.**
+
+---
+
+## 89. Processo de decisão visual por variações
+
+Antes de implementar telas importantes do aplicativo — especialmente Home, Biblioteca, Modo Leitura, Mural e Mente — seguir este processo:
+
+1. Criar 3 variações visuais estáticas da tela.
+2. Comparar as variações com base nos princípios do produto: calma, clareza, facilidade de uso, foco na leitura, pouca poluição visual e sensação premium e confortável.
+3. Escolher a melhor direção entre as 3.
+4. Criar uma quarta variação refinada, combinando o que funcionou melhor nas anteriores.
+5. Revisar essa quarta variação com o usuário.
+6. Só depois da aprovação, transformar a variação escolhida em tela real do aplicativo.
+
+Regra-objetivo:
+
+> O objetivo das variações não é criar muitas telas. É evitar implementar uma tela ruim cedo demais.
+
+Onde fazer:
+
+- as variações devem ser feitas em ambiente separado: `design-lab`, mock estático ou rota de laboratório visual;
+- sem mexer em Supabase, autenticação, banco ou lógica real.
+
+Registro:
+
+- cada decisão visual importante deve ser registrada em `docs/VISUAL_DECISIONS.md`.
