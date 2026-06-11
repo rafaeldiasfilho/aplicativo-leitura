@@ -20,10 +20,10 @@
 
 > Fase 0 concluída.
 
-## A seguir (Fase 1 — Ciclo mínimo de valor)
+## Agora (Fase 1 — Ciclo mínimo de valor)
 
-- [ ] Home estática com livro(s) em leitura (mock)
-- [ ] Botão "+" de adição rápida (junto com o fluxo de adicionar livro)
+- [x] Home com livros em leitura (carrossel, mock) — via processo de variações §90
+- [ ] Botão "+" de adição rápida + fluxo de adicionar livro
 - [ ] Biblioteca mínima (mock)
 - [ ] Modo Leitura mínimo (timer real local + anotação rápida em memória)
 - [ ] Tela de revisão da anotação

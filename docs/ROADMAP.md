@@ -22,7 +22,7 @@ Objetivo: ter contexto, regras e plano escritos antes de qualquer código de pro
 - [x] `docs/FUTURE_IDEAS.md`
 - [x] `docs/READING_SOURCES.md`
 - [x] `docs/AI_AGENTS.md`
-- [ ] `docs/PRIVACY_AND_COPYRIGHT.md` (quando entrar PDF/Kindle)
+- [x] `docs/PRIVACY_AND_COPYRIGHT.md`
 - [x] `.claude/agents/` (1ª leva: docs-context-curator, product-guardian)
 - [x] `.claude/skills/` (1ª leva: context-update, task-slicing)
 
