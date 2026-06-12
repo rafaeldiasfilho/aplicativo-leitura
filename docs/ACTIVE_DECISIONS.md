@@ -100,3 +100,9 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - **Visual (§90):** o layout passou pelo processo de variações (V1 Foco / V2 Cartão / V3 Imersivo → V4 refinada, combinando V2+V3). Detalhe em `VISUAL_DECISIONS.md` (2026-06-12).
 - **Fora do escopo agora:** Mural, balões sugeridos, PiP, resumo final animado, tela de revisão. `progress` ainda não é editável manualmente (só vai a 100 ao terminar o livro).
 - **Reflete em:** `apps/web/src/app/leitura/`, `apps/web/src/lib/notes.ts`, `notes-store.ts`, `books-store.ts`, `apps/web/src/app/page.tsx`, `APP_CONTEXT.md` §13/§15.
+
+### Tela de revisão da anotação — `/anotacoes` (fecha o ciclo da Fase 1)
+- **Decisão:** a área `/anotacoes` lista as anotações do store **agrupadas por livro**, mais recentes primeiro, cada uma num cartão com conteúdo e horário ("às HH:MM" se hoje, senão "DD/MM"). Empty state acolhedor.
+- **Por quê:** fecha o ciclo mínimo do MVP — o leitor reencontra o que guardou e percebe valor (§3).
+- **Escopo:** sem filtros, ordenações ou tipos de anotação (a organização rica da §15 e a identidade visual por tipo são Fase 2). Não está na lista do §90, então feita direto.
+- **Reflete em:** `apps/web/src/app/anotacoes/page.tsx`, `APP_CONTEXT.md` §15. **Fase 1 concluída.**
