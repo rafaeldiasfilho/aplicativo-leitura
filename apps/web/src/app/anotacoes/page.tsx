@@ -54,22 +54,22 @@ export default function AnotacoesPage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-10">
-      <header>
+    <main className="w-full flex-1 px-6 py-10">
+      <header className="text-center">
         <h1 className="text-2xl font-medium tracking-tight">Anotações</h1>
         <p className="mt-1 text-sm text-muted">O que você guardou até aqui.</p>
       </header>
 
       {groups.map((group) => (
         <section key={group.bookId} className="mt-9">
-          <h2 className="text-sm font-medium text-foreground">
+          <h2 className="text-center text-sm font-medium text-foreground">
             {titleById.get(group.bookId) ?? "Livro"}
           </h2>
-          <ul className="mt-3 flex flex-col gap-2">
+          <ul className="mt-3 flex flex-wrap justify-center gap-2">
             {group.notes.map((note) => (
               <li
                 key={note.id}
-                className="rounded-2xl border border-border bg-surface px-4 py-3"
+                className="w-full rounded-2xl border border-border bg-surface px-4 py-3 sm:w-72"
               >
                 <p className="text-sm leading-relaxed">{note.content}</p>
                 <p className="mt-1.5 text-xs text-muted">

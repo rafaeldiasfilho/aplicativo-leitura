@@ -24,7 +24,7 @@ export function SiteNav() {
       aria-label="Navegação principal"
       className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-surface/95 backdrop-blur md:sticky md:inset-x-auto md:bottom-auto md:top-0 md:border-t-0 md:border-b"
     >
-      <ul className="mx-auto flex max-w-3xl items-stretch justify-around md:justify-start md:gap-1 md:px-6">
+      <ul className="mx-auto flex max-w-3xl items-stretch justify-around md:justify-center md:gap-1 md:px-6">
         {items.map((item) => {
           const active = isActive(pathname, item.href);
           return (
