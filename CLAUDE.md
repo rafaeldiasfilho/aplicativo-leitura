@@ -1,6 +1,6 @@
 # Aplicativo — Instruções Mestras para Claude Code
 
-Este projeto está sendo reconstruído do zero em monorepo.
+Este é o aplicativo, construído em monorepo.
 
 Antes de qualquer alteração, leia obrigatoriamente:
 
@@ -53,8 +53,8 @@ Na raiz do monorepo:
 - .claude/agents: subagentes do Claude Code
 - .claude/skills: skills reutilizáveis do Claude Code
 
-## Decisão atual
+## Direção atual
 
-Como o código antigo foi perdido, este projeto deve ser tratado como uma V2 limpa.
+Este é o primeiro aplicativo, construído com calma desde o início.
 
-Não tente recuperar arquitetura antiga. Use o contexto mestre para reconstruir melhor, com mais calma, clareza, segurança e organização.
+Use o contexto mestre para construir com clareza, segurança e organização, sempre priorizando a experiência calma de leitura.

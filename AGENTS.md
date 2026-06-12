@@ -1,6 +1,6 @@
 # Instruções para Agentes de IA
 
-Este projeto é um monorepo reconstruído do zero.
+Este projeto é um monorepo do aplicativo.
 
 Leia primeiro:
 
