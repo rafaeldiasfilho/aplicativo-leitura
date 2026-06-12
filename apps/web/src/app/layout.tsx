@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteNav } from "@/components/site-nav";
+import { AddFab } from "@/components/add-fab";
 
 // Aplica o tema salvo antes da primeira pintura, evitando flash. Tag <script>
 // nativa inline no início do <body> (HTML válido, sem erro de hidratação).
@@ -37,6 +38,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <SiteNav />
         <div className="flex flex-1 flex-col pb-14 md:pb-0">{children}</div>
+        <AddFab />
       </body>
     </html>
   );

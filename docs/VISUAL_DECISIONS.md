@@ -175,3 +175,32 @@ Validado com typecheck/lint/build.
 - Comportamento (timer, finalizar sessão, terminei o livro) já registrado em `ACTIVE_DECISIONS.md` (2026-06-12, "Modo Leitura mínimo").
 
 Validado com typecheck/lint/build (`/leitura?id=…` → 200).
+
+---
+
+## 2026-06-12 — Padrão de layout das telas e FAB de adicionar
+
+**Contexto:** ao revisar a Home no desktop, o conteúdo "espalhava" para a esquerda. Isso levou a definir um padrão de layout consistente para todas as telas.
+
+### Padrão definido (duas famílias)
+
+- **Telas de coleção** (Home, Biblioteca, Anotações, Mente): largura **cheia** (canto a canto), **header centralizado** e conteúdo **centralizado** — poucos itens ficam no centro, muitos preenchem e a última fileira fica centrada.
+  - Home: carrossel com `[justify-content:safe_center]` (centra poucos, rola muitos).
+  - Biblioteca e Anotações: `flex flex-wrap justify-center` com itens de largura fixa (em vez de `grid`, que alinhava à esquerda).
+- **Telas de foco** (Adicionar, Leitura, Configurações): largura **contida e legível**, sem FAB.
+
+### FAB de adicionar (§8)
+
+- O "+" de adição rápida virou um **botão flutuante** fixo no **canto inferior direito** (`components/add-fab.tsx`), em cor de acento.
+- Aparece **só nas telas de coleção** (some na Leitura, Adicionar e Configurações); no celular fica **acima da barra de navegação**.
+- Removido o "+" que ficava no header da Home e da Biblioteca.
+
+### Navegação
+
+- No desktop, os itens da nav passaram de `justify-start` (à esquerda) para **`justify-center`** (centralizados), acompanhando o padrão.
+
+### Observação (futuro)
+
+- Centralizar a Biblioteca fica bom com poucos livros; quando a coleção crescer para dezenas, reavaliar se o alinhamento à esquerda (estante preenchendo) fica melhor.
+
+Validado com typecheck/lint/build (todas as rotas → 200).
