@@ -1,10 +1,12 @@
-export default function LeituraPage() {
-  return (
-    <main className="flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
-      <div className="flex max-w-md flex-col items-center gap-3">
-        <h1 className="text-2xl font-medium tracking-tight">Leitura</h1>
-        <p className="text-sm text-muted">Em construção, com cuidado.</p>
-      </div>
-    </main>
-  );
+import { LeituraView } from "./leitura-view";
+
+// Modo Leitura: server component fino que lê o id do livro da URL e entrega
+// para a view client (timer + anotação). Sem banco ainda (Fase 1).
+export default async function LeituraPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ id?: string }>;
+}) {
+  const { id } = await searchParams;
+  return <LeituraView bookId={id ?? null} />;
 }

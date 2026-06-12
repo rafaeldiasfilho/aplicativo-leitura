@@ -26,7 +26,7 @@
 - [x] Tela `/adicionar` (busca + intenção Ler agora/Já lido/Ler depois) ligada ao "+" — via §90
 - [x] Adicionar funcional: store em memória + `/adicionar` salva + Home reflete (carrossel/empty state)
 - [x] Biblioteca mínima (livros por status; histórico marcado) — store em memória
-- [ ] Modo Leitura mínimo (timer real local + anotação rápida em memória)
+- [x] Modo Leitura mínimo (timer real + anotação rápida; finalizar / terminei o livro)
 - [ ] Tela de revisão da anotação
 
 ## Backlog próximo (Fase 2+)
