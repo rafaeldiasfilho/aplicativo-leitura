@@ -53,6 +53,26 @@ export function addBook(input: {
   return book;
 }
 
+// Soma o tempo real de uma sessão ao total do livro (tempo medido no app).
+export function addReadingMinutes(bookId: string, minutes: number) {
+  if (minutes <= 0) return;
+  books = books.map((b) =>
+    b.id === bookId ? { ...b, totalMinutes: b.totalMinutes + minutes } : b,
+  );
+  emit();
+}
+
+// Marca o livro como lido dentro do app: status "lido", historico false
+// (tempo real, alimenta "Lido no aplicativo" na Biblioteca), progresso 100.
+export function finishBook(bookId: string) {
+  books = books.map((b) =>
+    b.id === bookId
+      ? { ...b, status: "lido", historico: false, progress: 100 }
+      : b,
+  );
+  emit();
+}
+
 export function useBooks(): Book[] {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

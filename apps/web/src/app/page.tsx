@@ -64,9 +64,11 @@ export default function Home() {
                   {book.progress}% · {formatReadingTime(book.totalMinutes)} de
                   leitura
                 </p>
-                <Button className="mt-3 w-full" type="button">
-                  {i === 0 ? "Continuar leitura" : "Continuar"}
-                </Button>
+                <Link href={`/leitura?id=${book.id}`} className="mt-3 block">
+                  <Button className="w-full" type="button">
+                    {i === 0 ? "Continuar leitura" : "Continuar"}
+                  </Button>
+                </Link>
               </article>
             ))}
           </div>

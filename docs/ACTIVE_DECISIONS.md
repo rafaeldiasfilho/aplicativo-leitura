@@ -91,3 +91,18 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - **Decisão:** **busca primeiro** (procurar e tocar para guardar) + **"Adicionar manualmente"** como alternativa. Acessado pelo botão **"+"** da Home, na rota `/adicionar`. Escolhido via processo de variações §90 (V3 → V4).
 - **Estado atual:** tela estática; busca é mock; salvar de verdade (store em memória) é a próxima fatia.
 - **Reflete em:** `apps/web/src/app/adicionar/page.tsx`, `apps/web/src/app/page.tsx` (botão "+"), `docs/VISUAL_DECISIONS.md`.
+
+### Modo Leitura mínimo — timer real + anotação rápida
+- **Decisão:** rota `/leitura?id=<livro>` (server component lê o `id`; `leitura-view.tsx` client cuida da interação). Aberta pelo botão "Continuar leitura" da Home.
+- **Timer (§13):** estados *iniciar → pausar → retomar → finalizar*. Contagem por **timestamps acumulados** (`accumulatedRef` + `startRef`), não só por `setInterval`, para ser confiável mesmo se a aba dormir. O tempo só corre quando ativo.
+- **Anotação rápida (§15):** campo "Guardar um pensamento", salvo em `notes-store.ts` (memória) vinculado ao livro. As anotações da sessão ficam **recolhidas por padrão**, com contador que expande a lista.
+- **Dois fechamentos:** **"Finalizar sessão"** soma o tempo real (`addReadingMinutes`) e volta à Home; **"Terminei o livro"** (com confirmação inline) soma o tempo, marca `status: "lido" / historico: false` (`finishBook`) e vai à Biblioteca — alimentando "Lido no aplicativo".
+- **Visual (§90):** o layout passou pelo processo de variações (V1 Foco / V2 Cartão / V3 Imersivo → V4 refinada, combinando V2+V3). Detalhe em `VISUAL_DECISIONS.md` (2026-06-12).
+- **Fora do escopo agora:** Mural, balões sugeridos, PiP, resumo final animado, tela de revisão. `progress` ainda não é editável manualmente (só vai a 100 ao terminar o livro).
+- **Reflete em:** `apps/web/src/app/leitura/`, `apps/web/src/lib/notes.ts`, `notes-store.ts`, `books-store.ts`, `apps/web/src/app/page.tsx`, `APP_CONTEXT.md` §13/§15.
+
+### Tela de revisão da anotação — `/anotacoes` (fecha o ciclo da Fase 1)
+- **Decisão:** a área `/anotacoes` lista as anotações do store **agrupadas por livro**, mais recentes primeiro, cada uma num cartão com conteúdo e horário ("às HH:MM" se hoje, senão "DD/MM"). Empty state acolhedor.
+- **Por quê:** fecha o ciclo mínimo do MVP — o leitor reencontra o que guardou e percebe valor (§3).
+- **Escopo:** sem filtros, ordenações ou tipos de anotação (a organização rica da §15 e a identidade visual por tipo são Fase 2). Não está na lista do §90, então feita direto.
+- **Reflete em:** `apps/web/src/app/anotacoes/page.tsx`, `APP_CONTEXT.md` §15. **Fase 1 concluída.**
