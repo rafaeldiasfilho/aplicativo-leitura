@@ -152,3 +152,26 @@ Validado com typecheck/lint/build.
 - A tela ainda **não salva** (mock); store em memória é a próxima fatia.
 
 Validado com typecheck/lint/build.
+
+---
+
+## 2026-06-12 — Modo Leitura (Fase 1) pelo processo §90
+
+**Contexto:** o Modo Leitura é a tela central ("coração da experiência"). A lógica de timer/anotação já tinha sido construída direto; voltamos ao processo de variações antes de fixar o visual.
+
+### Processo
+
+- **3 variações** estáticas em `/design-lab/leitura` (mock, `SEED_BOOKS`):
+  - **V1 — Foco (Zen):** minimalismo radical, só o timer no centro, anotação escondida atrás de um toque.
+  - **V2 — Cartão de leitura:** livro num cartão, timer em bloco, anotação sempre à vista. Estruturado.
+  - **V3 — Imersivo:** capa do livro como atmosfera (gradiente no topo), anotação como folha que sobe. Premium.
+- **Escolha do usuário:** V2 **e** V3.
+- **V4 — Refinada (escolhida):** atmosfera da capa de V3 (gradiente + título/autor) **com o progresso à vista** de V2; timer grande em destaque com controles claros (Pausar / Finalizar); anotação **recolhida** como folha (§13), "＋ Guardar um pensamento" + "Terminei o livro".
+
+### Decisões
+
+- V4 **promovida** para a tela real **`/leitura`** (`leitura-view.tsx`), reaproveitando a lógica de timer (timestamps acumulados) e anotação em memória já existente.
+- `design-lab` **removido** após a decisão (§90).
+- Comportamento (timer, finalizar sessão, terminei o livro) já registrado em `ACTIVE_DECISIONS.md` (2026-06-12, "Modo Leitura mínimo").
+
+Validado com typecheck/lint/build (`/leitura?id=…` → 200).
