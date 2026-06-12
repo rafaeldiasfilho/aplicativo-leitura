@@ -12,6 +12,9 @@
 |---|---|
 | `context-update` | Após uma decisão nova, para atualizar a documentação sem duplicar/contradizer. |
 | `task-slicing` | Antes de implementar pedido grande/vago — quebrar em fatias pequenas e testáveis. |
+| `reading-session-timer` | Ao criar/alterar o contador de leitura, sessões ou Modo Leitura — protege as regras do tempo real. |
+| `release-checklist` | Ao final de uma tarefa, antes de "pronto"/commit — valida build, lint, tipos, UX e docs. |
+| `grill-with-docs` | Antes de feature grande ou decisão sensível — entrevistar cruzando com os docs antes de implementar. |
 
 ## Subagentes (`.claude/agents/`)
 
@@ -25,10 +28,11 @@
 - Pedido amplo ("crie a Home") → skill `task-slicing`, depois processo de variações (§90), com `product-guardian` avaliando.
 
 ## Próximas levas (criar quando houver uso real)
-- **UX/produto:** agente `ux-cleanliness-reviewer`; skills `clean-ui-review`, `visual-decision`, `startup-enxuta-check`.
-- **Engenharia:** agentes `frontend-nextjs-architect`, `qa-regression-tester`; skills `release-checklist`, `grill-with-docs`.
-- **Leitura:** agente `reading-sources-architect`; skills `reading-session-timer`, `mural-layout`.
-- **Banco/arquivos (só quando entrar Supabase/PDF):** `backend-supabase-rls`, `pdf-epub-reader-engineer`, `privacy-copyright-reviewer`; skills `supabase-rls-check`, `pdf-reader-plan`, `kindle-import-plan`.
+- **UX/produto:** agente `ux-cleanliness-reviewer`; skills `clean-ui-review`, `visual-decision`, `startup-enxuta-check`, `write-a-prd`, `prd-to-kanban`, `docs-to-architecture`, `export-system`.
+- **Engenharia:** agentes `frontend-nextjs-architect`, `qa-regression-tester`, `ai-workflow-orchestrator`; skills `grill-me`.
+- **Leitura:** agente `reading-sources-architect`; skill `mural-layout`.
+- **Banco/arquivos (só quando entrar Supabase/PDF):** agentes `backend-supabase-rls`, `pdf-epub-reader-engineer`, `privacy-copyright-reviewer`; skills `supabase-rls-check`, `pdf-reader-plan`, `kindle-import-plan`, `privacy-copyright-check`.
+- **Beta:** agente `beta-feedback-analyst`; skill `beta-feedback`.
 
 ## Regras
 - Um subagente/skill só existe se tiver responsabilidade clara e uso real.

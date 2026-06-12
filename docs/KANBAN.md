@@ -25,8 +25,7 @@
 - [x] Home com livros em leitura (carrossel, mock) — via processo de variações §90
 - [x] Tela `/adicionar` (busca + intenção Ler agora/Já lido/Ler depois) ligada ao "+" — via §90
 - [x] Adicionar funcional: store em memória + `/adicionar` salva + Home reflete (carrossel/empty state)
-- [ ] Biblioteca mínima (mostra livros por status, inclui "Já lido"/"Ler depois") — via §90
-- [ ] Modo Leitura mínimo (timer real local + anotação rápida em memória)
+- [x] Biblioteca mínima (livros por status; histórico marcado) — store em memória
 - [ ] Modo Leitura mínimo (timer real local + anotação rápida em memória)
 - [ ] Tela de revisão da anotação
 

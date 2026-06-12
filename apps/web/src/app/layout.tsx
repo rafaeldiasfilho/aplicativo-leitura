@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { SiteNav } from "@/components/site-nav";
+
+// Aplica o tema salvo antes da primeira pintura, evitando flash. Tag <script>
+// nativa inline no início do <body> (HTML válido, sem erro de hidratação).
+const themeInit = `try{var t=localStorage.getItem('theme')||'system';document.documentElement.setAttribute('data-theme',t);}catch(e){}`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,12 +34,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <SiteNav />
         <div className="flex flex-1 flex-col pb-14 md:pb-0">{children}</div>
       </body>
-      <Script id="theme-init" strategy="beforeInteractive">
-        {`try{var t=localStorage.getItem('theme')||'system';document.documentElement.setAttribute('data-theme',t);}catch(e){}`}
-      </Script>
     </html>
   );
 }
