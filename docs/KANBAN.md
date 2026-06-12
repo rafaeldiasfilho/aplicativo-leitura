@@ -4,47 +4,28 @@
 **Fonte de verdade de produto:** `docs/APP_CONTEXT.md`
 **Plano de fases:** `docs/ROADMAP.md`
 
-> Mantenha este arquivo curto. Tarefas concluídas podem ser removidas ou movidas para "Concluído recentemente"; histórico detalhado fica no Git.
+> Mantenha este arquivo curto. Tarefas concluídas viram uma linha em "Concluído"; o histórico detalhado fica no Git e em `docs/VISUAL_DECISIONS.md`.
 
 ---
 
-## Agora (Fase 0 — Base técnica)
+## Agora (Fase 2 — UX de leitura e anotações)
 
-- [x] Fundação visual: tokens de cor calmos + tema do sistema (claro/escuro)
-- [x] Casca base do `layout` (pt-BR, fonte, classes base) e Home placeholder
-- [x] Criar rotas vazias: `/biblioteca`, `/leitura`, `/anotacoes`, `/mente`, `/configuracoes`
-- [x] Criar componentes base: botão, card, input, badge
-- [x] Barra de navegação principal (Início · Biblioteca · Anotações · Mente; adaptativa)
-- [x] Toggle manual de tema (claro/escuro/sistema)
-- [x] Garantir `pnpm lint`, `pnpm typecheck` e `pnpm build` passando após cada mudança
+- [ ] Resumo final de sessão (apanhado das anotações ao finalizar)
+- [ ] Tipos de anotação com identidade visual (Rápida · Reflexão · Marca-texto · Post-it)
+- [ ] Lixeira (soft delete / restaurar)
 
-> Fase 0 concluída.
+## Backlog próximo (Fase 3)
 
-## Agora (Fase 1 — Ciclo mínimo de valor)
-
-- [x] Home com livros em leitura (carrossel, mock) — via processo de variações §90
-- [x] Tela `/adicionar` (busca + intenção Ler agora/Já lido/Ler depois) ligada ao "+" — via §90
-- [x] Adicionar funcional: store em memória + `/adicionar` salva + Home reflete (carrossel/empty state)
-- [x] Biblioteca mínima (livros por status; histórico marcado) — store em memória
-- [x] Modo Leitura mínimo (timer real + anotação rápida; finalizar / terminei o livro)
-- [x] Tela de revisão da anotação (`/anotacoes`: agrupadas por livro, mais recentes primeiro)
-
-> Fase 1 concluída — ciclo mínimo de pé: cadastrar → ler → anotar → finalizar → revisar → voltar (tudo em memória, sem banco).
-
-## Backlog próximo (Fase 2+)
-
-- [ ] Resumo final de sessão
-- [ ] Tipos de anotação com identidade visual própria
-- [ ] Lixeira
-- [ ] Mural (sem pausar timer) e Mente com categorias automáticas
+- [ ] Mural separado (sem pausar o timer) + balões sugeridos
+- [ ] Mente com cérebro central e categorias automáticas simples
 
 ## Bloqueado / aguardando autorização
 
 - Supabase, Auth, RLS, Storage — não iniciar sem autorização explícita
 - PDF/EPUB/Kindle — não iniciar sem documentação e aprovação prévia
 
-## Concluído recentemente
+## Concluído
 
-- [x] Monorepo pnpm + turbo criado
-- [x] `docs/APP_CONTEXT.md` escrito
-- [x] `docs/ROADMAP.md` e `docs/KANBAN.md` criados
+- **Fase 0 — Base técnica:** monorepo pnpm+turbo, casca/layout, navegação adaptativa, tema claro/escuro/sistema, componentes base, rotas vazias.
+- **Fase 1 — Ciclo mínimo:** Home (carrossel), adicionar livro, Biblioteca, Modo Leitura (timer + anotação), revisão de anotações — tudo em memória. Ciclo `cadastrar → ler → anotar → finalizar → revisar → voltar` de pé.
+- **Refinamentos:** padrão de layout (coleção/foco) + FAB de adicionar, fix de hidratação, 3 skills de apoio (`reading-session-timer`, `release-checklist`, `grill-with-docs`).
