@@ -26,7 +26,6 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 ### Gerenciador de pacotes e validação
 - **Decisão:** comandos oficiais são **`pnpm lint`, `pnpm typecheck`, `pnpm build`** (monorepo pnpm + turbo). `npm run` está obsoleto.
 - **Por quê:** o projeto usa pnpm workspaces.
-- **Pendência:** ~5 blocos do `APP_CONTEXT.md` ainda citam `npm run` (linhas 982, 1446, 1628, 1737, 1962) — converter num passe próprio.
 - **Reflete em:** `CLAUDE.md`, `AGENTS.md`, `package.json`.
 
 ### Navegação principal
@@ -48,7 +47,7 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 ### Processo de decisão visual por variações
 - **Decisão:** antes de telas importantes (Home, Biblioteca, Modo Leitura, Mural, Mente), criar **3 variações estáticas → escolher → 4ª refinada → revisar com o usuário → só então implementar**, em `design-lab`/mock (sem banco/auth/lógica real), registrando a escolha em `VISUAL_DECISIONS.md`.
 - **Por quê:** evitar implementar uma tela ruim cedo demais.
-- **Reflete em:** `APP_CONTEXT.md` §89.
+- **Reflete em:** `APP_CONTEXT.md` §90 (o design-lab descartável é §89.9).
 
 ### Stack e estrutura
 - **Decisão:** monorepo **pnpm + Turborepo**; `apps/web` em **Next.js 16 (App Router) + React 19 + TypeScript + Tailwind 4**; desenvolvimento dentro do **Dev Container**.

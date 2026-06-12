@@ -5,6 +5,13 @@
 
 > Este documento não é uma transcrição literal de todos os chats. Ele consolida, aprofunda e organiza as decisões, ideias, regras, aprendizados, correções, hipóteses e caminhos definidos nas conversas sobre o aplicativo. Quando houver conflito entre uma ideia antiga e uma decisão mais recente, a decisão mais recente deve prevalecer.
 
+> **Como usar estes documentos.** Este é o **arquivo profundo e histórico** do produto. Para o **estado vigente**, consulte os documentos derivados — a fonte viva e enxuta:
+> - Decisões atuais → `docs/ACTIVE_DECISIONS.md` (datadas; **prevalecem** sobre o texto antigo daqui)
+> - Princípios → `docs/PRODUCT_PRINCIPLES.md` · Tom de voz → `docs/UX_LANGUAGE.md` · Glossário → `docs/GLOSSARY.md`
+> - Plano e tarefas → `docs/ROADMAP.md` · `docs/KANBAN.md` · Decisões visuais → `docs/VISUAL_DECISIONS.md`
+> - Método → `docs/WORKFLOW.md` · Fontes de leitura → `docs/READING_SOURCES.md` · Privacidade → `docs/PRIVACY_AND_COPYRIGHT.md`
+> - Skills/agentes → `docs/AI_AGENTS.md` · Ideias adiadas → `docs/FUTURE_IDEAS.md`
+
 ---
 
 ## 0. Estado atual da situação

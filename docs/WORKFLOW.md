@@ -35,7 +35,7 @@ pnpm build
 
 ## Telas importantes → processo de variações
 
-Antes de Home, Biblioteca, Modo Leitura, Mural e Mente: **3 variações estáticas → escolher → 4ª refinada → revisar com o usuário → só então implementar**, em `design-lab`/mock, sem banco. Registrar em `VISUAL_DECISIONS.md` (ver `APP_CONTEXT.md` §89).
+Antes de Home, Biblioteca, Modo Leitura, Mural e Mente: **3 variações estáticas → escolher → 4ª refinada → revisar com o usuário → só então implementar**, em `design-lab`/mock, sem banco. Registrar em `VISUAL_DECISIONS.md` (ver `APP_CONTEXT.md` §90).
 
 ## Git
 
@@ -58,4 +58,4 @@ Erro da IA vira melhoria de contexto: explicar o erro, atualizar a documentaçã
 
 ## Critérios de pronto
 
-Respeita o contexto · não polui a interface · não quebra o build · testado minimamente · não prejudica dados · não viola RLS/segurança · documentado se mudou decisão · passou lint/typecheck/build · commit claro.
+Respeita o contexto · não polui a interface · não quebra o build · testado minimamente · não prejudica dados · não viola RLS/segurança · **acessível** (contraste, foco visível por teclado, `prefers-reduced-motion`, áreas clicáveis sem espaço invisível) · documentado se mudou decisão · passou lint/typecheck/build · commit claro.
