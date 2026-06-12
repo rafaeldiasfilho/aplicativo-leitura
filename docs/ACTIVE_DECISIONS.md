@@ -80,6 +80,13 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - **Ressalvas registradas:** duração de audiobook exige fonte de dados externa (frente futura); audiobook tende a superestimar o tempo de leitura silenciosa; nem todo livro tem audiobook (por isso o fallback).
 - **Reflete em:** `APP_CONTEXT.md` §14, `docs/READING_SOURCES.md`.
 
+### Biblioteca mínima — agrupar por status; separar lido no app vs. histórico
+- **Decisão:** a `/biblioteca` mostra os livros do store agrupados por status na ordem **Lendo · Quero ler · Lido** (`STATUS_ORDER`/`STATUS_LABELS` em `lib/books.ts`). Cada seção só aparece se tiver livros.
+- **Lido no app vs. histórico (§11/§14):** a distinção é de **dados** — `status: "lido"` + `historico: false` = lido dentro do app (tempo real); `historico: true` = lido antes do app (tempo estimado). Na seção **Lido**, quando os dois tipos coexistem, mostram-se duas subseções: **"Lido no aplicativo"** e **"Histórico de leitura"**. Quando há só um tipo, **não subdivide** e o título da seção reflete o tipo (evita subtítulo/seção vazia). Abandonado o badge "Histórico" anterior, que era redundante com o subtítulo.
+- **"Pausado":** continua fora da Biblioteca por enquanto — entra quando o Modo Leitura puder gerar esse status.
+- **Layout:** grade de capas (visão geral, não carrossel), empty state calmo, botão "+" como na Home. Sem banco (Fase 1).
+- **Reflete em:** `apps/web/src/app/biblioteca/page.tsx`, `apps/web/src/lib/books.ts`, `APP_CONTEXT.md` §11/§14.
+
 ### Fluxo de adicionar (UI)
 - **Decisão:** **busca primeiro** (procurar e tocar para guardar) + **"Adicionar manualmente"** como alternativa. Acessado pelo botão **"+"** da Home, na rota `/adicionar`. Escolhido via processo de variações §90 (V3 → V4).
 - **Estado atual:** tela estática; busca é mock; salvar de verdade (store em memória) é a próxima fatia.

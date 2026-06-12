@@ -2,6 +2,16 @@
 
 export type BookStatus = "lendo" | "lido" | "quero-ler";
 
+// Rótulos calmos dos status, na ordem em que aparecem na Biblioteca.
+// "Pausado" entra quando o Modo Leitura existir (ver ACTIVE_DECISIONS 2026-06-12).
+export const STATUS_LABELS: Record<BookStatus, string> = {
+  lendo: "Lendo",
+  "quero-ler": "Quero ler",
+  lido: "Lido",
+};
+
+export const STATUS_ORDER: BookStatus[] = ["lendo", "quero-ler", "lido"];
+
 export type Book = {
   id: string;
   title: string;
