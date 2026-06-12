@@ -33,19 +33,10 @@ export default function BibliotecaPage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-10">
-      <header className="flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-medium tracking-tight">Biblioteca</h1>
-          <p className="mt-1 text-sm text-muted">Tudo o que você guardou.</p>
-        </div>
-        <Link
-          href="/adicionar"
-          aria-label="Adicionar livro"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border text-lg text-muted transition-colors hover:text-foreground"
-        >
-          +
-        </Link>
+    <main className="w-full flex-1 px-6 py-10">
+      <header className="text-center">
+        <h1 className="text-2xl font-medium tracking-tight">Biblioteca</h1>
+        <p className="mt-1 text-sm text-muted">Tudo o que você guardou.</p>
       </header>
 
       {STATUS_ORDER.map((status) => {
@@ -103,7 +94,7 @@ function LidoSection({ books }: { books: Book[] }) {
 function SubGroup({ label, books }: { label: string; books: Book[] }) {
   return (
     <div className="mt-5">
-      <p className="text-xs font-medium text-muted">
+      <p className="text-center text-xs font-medium text-muted">
         {label} · {books.length}
       </p>
       <BookGrid books={books} className="mt-3" />
@@ -113,7 +104,7 @@ function SubGroup({ label, books }: { label: string; books: Book[] }) {
 
 function SectionHeading({ label, count }: { label: string; count: number }) {
   return (
-    <div className="flex items-baseline gap-2">
+    <div className="flex items-baseline justify-center gap-2">
       <h2 className="text-sm font-medium text-foreground">{label}</h2>
       <span className="text-xs text-muted">{count}</span>
     </div>
@@ -130,14 +121,9 @@ function BookGrid({
   className?: string;
 }) {
   return (
-    <ul
-      className={cn(
-        "grid grid-cols-3 gap-x-4 gap-y-6 sm:grid-cols-4 md:grid-cols-5",
-        className,
-      )}
-    >
+    <ul className={cn("flex flex-wrap justify-center gap-x-4 gap-y-6", className)}>
       {books.map((book) => (
-        <li key={book.id}>
+        <li key={book.id} className="w-24 sm:w-28 md:w-32">
           <BookCover book={book} showText={false} />
           <h3 className="mt-2 line-clamp-2 text-sm font-medium leading-tight">
             {book.title}
