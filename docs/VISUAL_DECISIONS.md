@@ -103,3 +103,52 @@ Validado com typecheck/lint/build e smoke test (`/configuracoes` → 200, toggle
 ## Estado da Fase 0
 
 Concluída: fundação visual, casca/layout, rotas, componentes base, navegação adaptativa e tema manual. Pendências movidas para a Fase 1: Home real e botão "+" de adição rápida.
+
+---
+
+## 2026-06-11 — Home (Fase 1) pelo processo de variações §90
+
+**Contexto:** primeira tela real, seguindo o processo de decisão visual por variações (3 + 1 refinada).
+
+### Processo
+
+- Criadas **3 variações estáticas** em `/design-lab` com dados mock (`src/lib/mock-books.ts`):
+  - **V1 — Hero:** livro atual em destaque, "Continuar leitura" dominante.
+  - **V2 — Estante:** lista vertical de cards horizontais.
+  - **V3 — Carrossel:** capas grandes deslizantes, sensação premium.
+- **Escolha do usuário:** V3 (Carrossel) como base.
+- **V4 — Refinada (escolhida):** carrossel (V3) + saudação humana e selo "Onde você parou" (V1), tempo de leitura, botão "+" discreto, dots de paginação e mensagem calma do `UX_LANGUAGE` ("Sem pressa. Sua leitura continua aqui.").
+
+### Decisões
+
+- A V4 foi **promovida à Home real** (`/`).
+- `BookCover`/`ProgressBar` extraídos para `src/components/book-cover.tsx` (compartilhados).
+- O `design-lab` foi **removido** após a decisão (cumpriu o papel; permanece no histórico do Git), conforme §90 ("laboratório é descartável, não vira produto paralelo").
+- O botão **"+"** está presente como elemento visual, **sem ação ainda** — será ligado ao fluxo de adicionar livro na próxima fatia da Fase 1.
+- Dados ainda são **mock** (Fase 1 sem banco); Supabase entra na Fase 4.
+
+Validado com typecheck/lint/build.
+
+---
+
+## 2026-06-12 — Adicionar livro (Fase 1) pelo processo §90
+
+**Contexto:** fluxo de adicionar livro, ligado ao botão "+" da Home.
+
+### Processo
+
+- **3 variações** estáticas em `/design-lab/add` (mock):
+  - **V1 — Página:** formulário manual completo.
+  - **V2 — Folha inferior:** bottom-sheet rápido, mobile-first.
+  - **V3 — Busca primeiro:** procurar e selecionar.
+- **Escolha do usuário:** V3 (Busca primeiro).
+- **V4 — Refinada (escolhida):** busca + escolha de intenção (Ler agora / Já lido / Ler depois) + guardar, num fluxo único; "Adicionar manualmente" como alternativa.
+
+### Decisões
+
+- V4 **promovida** para a rota real **`/adicionar`** (com "voltar"); botão "+" da Home passa a apontar para ela.
+- `design-lab` **removido** após a decisão (§90).
+- Intenções e regra de tempo estimado do "Já lido" registradas em `ACTIVE_DECISIONS.md` (2026-06-12).
+- A tela ainda **não salva** (mock); store em memória é a próxima fatia.
+
+Validado com typecheck/lint/build.
