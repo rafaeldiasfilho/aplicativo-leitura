@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { readingBooks, formatReadingTime } from "@/lib/mock-books";
 import { BookCover, ProgressBar } from "@/components/book-cover";
 import { Button } from "@/components/ui/button";
@@ -14,13 +15,13 @@ export default function Home() {
             Continue de onde parou
           </h1>
         </div>
-        <button
-          type="button"
+        <Link
+          href="/adicionar"
           aria-label="Adicionar livro"
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border text-lg text-muted transition-colors hover:text-foreground"
         >
           +
-        </button>
+        </Link>
       </header>
 
       <div className="mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2">

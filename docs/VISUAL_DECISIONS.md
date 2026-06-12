@@ -128,3 +128,27 @@ Concluída: fundação visual, casca/layout, rotas, componentes base, navegaçã
 - Dados ainda são **mock** (Fase 1 sem banco); Supabase entra na Fase 4.
 
 Validado com typecheck/lint/build.
+
+---
+
+## 2026-06-12 — Adicionar livro (Fase 1) pelo processo §90
+
+**Contexto:** fluxo de adicionar livro, ligado ao botão "+" da Home.
+
+### Processo
+
+- **3 variações** estáticas em `/design-lab/add` (mock):
+  - **V1 — Página:** formulário manual completo.
+  - **V2 — Folha inferior:** bottom-sheet rápido, mobile-first.
+  - **V3 — Busca primeiro:** procurar e selecionar.
+- **Escolha do usuário:** V3 (Busca primeiro).
+- **V4 — Refinada (escolhida):** busca + escolha de intenção (Ler agora / Já lido / Ler depois) + guardar, num fluxo único; "Adicionar manualmente" como alternativa.
+
+### Decisões
+
+- V4 **promovida** para a rota real **`/adicionar`** (com "voltar"); botão "+" da Home passa a apontar para ela.
+- `design-lab` **removido** após a decisão (§90).
+- Intenções e regra de tempo estimado do "Já lido" registradas em `ACTIVE_DECISIONS.md` (2026-06-12).
+- A tela ainda **não salva** (mock); store em memória é a próxima fatia.
+
+Validado com typecheck/lint/build.
