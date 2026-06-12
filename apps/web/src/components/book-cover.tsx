@@ -1,4 +1,4 @@
-import type { MockBook } from "@/lib/mock-books";
+import type { Book } from "@/lib/books";
 import { cn } from "@/lib/cn";
 
 // Capa do livro. Por enquanto é um gradiente calmo com título e autor;
@@ -8,7 +8,7 @@ export function BookCover({
   className,
   showText = true,
 }: {
-  book: MockBook;
+  book: Pick<Book, "title" | "author" | "cover">;
   className?: string;
   showText?: boolean;
 }) {
