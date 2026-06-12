@@ -27,7 +27,9 @@
 - [x] Adicionar funcional: store em memória + `/adicionar` salva + Home reflete (carrossel/empty state)
 - [x] Biblioteca mínima (livros por status; histórico marcado) — store em memória
 - [x] Modo Leitura mínimo (timer real + anotação rápida; finalizar / terminei o livro)
-- [ ] Tela de revisão da anotação
+- [x] Tela de revisão da anotação (`/anotacoes`: agrupadas por livro, mais recentes primeiro)
+
+> Fase 1 concluída — ciclo mínimo de pé: cadastrar → ler → anotar → finalizar → revisar → voltar (tudo em memória, sem banco).
 
 ## Backlog próximo (Fase 2+)
 
