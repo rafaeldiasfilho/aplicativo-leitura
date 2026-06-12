@@ -23,7 +23,8 @@
 ## Agora (Fase 1 — Ciclo mínimo de valor)
 
 - [x] Home com livros em leitura (carrossel, mock) — via processo de variações §90
-- [ ] Botão "+" de adição rápida + fluxo de adicionar livro
+- [x] Tela `/adicionar` (busca + intenção Ler agora/Já lido/Ler depois) ligada ao "+" — via §90
+- [ ] Tornar o adicionar funcional: salvar livro em memória e refletir na Home/Biblioteca
 - [ ] Biblioteca mínima (mock)
 - [ ] Modo Leitura mínimo (timer real local + anotação rápida em memória)
 - [ ] Tela de revisão da anotação

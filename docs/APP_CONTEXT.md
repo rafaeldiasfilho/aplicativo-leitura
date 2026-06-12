@@ -534,7 +534,7 @@ Separar claramente:
 - tempo real medido dentro do aplicativo;
 - tempo estimado de livros lidos antes do aplicativo.
 
-Livros históricos podem usar média de leitura estimada, mas nunca devem ser confundidos com tempo real registrado.
+Livros históricos (adicionados como "Já lido") usam tempo estimado: preferencialmente a duração do audiobook quando houver fonte de dados; enquanto isso, estimativa por páginas (média de leitura). Esse tempo entra na Mente, mas nunca deve ser confundido com tempo real registrado. (Decisão em `docs/ACTIVE_DECISIONS.md`.)
 
 ### Estatísticas possíveis
 

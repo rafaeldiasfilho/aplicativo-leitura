@@ -60,3 +60,27 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - Não criar integração real com **Kindle/Amazon/Kobo/Apple Books/Google Play**, nem prometer **DRM**, sem documentação e aprovação.
 - Não fazer **commit/push** sem permissão.
 - **Reflete em:** `CLAUDE.md` (Regras absolutas), `APP_CONTEXT.md` §32/§34.
+
+---
+
+## 2026-06-12
+
+### Adicionar livro — intenção em vez de status técnico
+- **Decisão:** ao adicionar um livro, a escolha é a **intenção**, com três opções: **Ler agora**, **Já lido**, **Ler depois**. Elas mapeiam para os status internos da Biblioteca (§11):
+  - Ler agora → **Lendo** (conta tempo real no app);
+  - Já lido → **Lido / Histórico** (entra na Mente; tempo estimado, não real);
+  - Ler depois → **Quero ler**.
+  - "Pausado" continua existindo, mas surge depois — não é escolha de entrada.
+- **Por quê:** é a escolha natural do usuário; cobre quem adiciona um livro já lido só para enriquecer a Mente.
+- **Reflete em:** `apps/web/src/app/adicionar/page.tsx`, `APP_CONTEXT.md` §11.
+
+### Tempo de leitura de "Já lido"
+- **Decisão:** "Já lido" entra na Mente **com tempo estimado**, sempre **separado** do tempo real medido no app. Fonte: **duração do audiobook quando houver fonte de dados**; enquanto isso, **estimativa por páginas** (fallback viável no MVP).
+- **Na interface:** mostrar apenas "tempo estimado" — a fonte (audiobook/páginas) fica nos bastidores.
+- **Ressalvas registradas:** duração de audiobook exige fonte de dados externa (frente futura); audiobook tende a superestimar o tempo de leitura silenciosa; nem todo livro tem audiobook (por isso o fallback).
+- **Reflete em:** `APP_CONTEXT.md` §14, `docs/READING_SOURCES.md`.
+
+### Fluxo de adicionar (UI)
+- **Decisão:** **busca primeiro** (procurar e tocar para guardar) + **"Adicionar manualmente"** como alternativa. Acessado pelo botão **"+"** da Home, na rota `/adicionar`. Escolhido via processo de variações §90 (V3 → V4).
+- **Estado atual:** tela estática; busca é mock; salvar de verdade (store em memória) é a próxima fatia.
+- **Reflete em:** `apps/web/src/app/adicionar/page.tsx`, `apps/web/src/app/page.tsx` (botão "+"), `docs/VISUAL_DECISIONS.md`.
