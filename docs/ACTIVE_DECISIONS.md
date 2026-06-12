@@ -106,3 +106,11 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - **Por quê:** fecha o ciclo mínimo do MVP — o leitor reencontra o que guardou e percebe valor (§3).
 - **Escopo:** sem filtros, ordenações ou tipos de anotação (a organização rica da §15 e a identidade visual por tipo são Fase 2). Não está na lista do §90, então feita direto.
 - **Reflete em:** `apps/web/src/app/anotacoes/page.tsx`, `APP_CONTEXT.md` §15. **Fase 1 concluída.**
+
+### Ferramentas de desenvolvimento — gh CLI, MCPs e plugins do Claude Code
+- **gh CLI:** instalado no ambiente (`~/.local/bin`, fora do versionamento) e autenticado, usado para abrir/mesclar PRs. É a ferramenta padrão de PR/issue por ora — resolve sem precisar de MCP do GitHub.
+- **MCPs (§76):** **adiados**. O **Supabase MCP** é o que mais agrega, mas só **na Fase 4** (quando o banco entrar) — registrado no `ROADMAP.md`. GitHub/Vercel MCP ficam **opcionais** (o `gh` já cobre o GitHub). Mantêm-se as travas da §76: sem escrita em produção sem revisão, sem alterar banco real sem plano, sem expor `.env`.
+- **Plugins do Claude Code:** **não criar agora**. O `.claude/` do repositório já carrega skills e subagentes automaticamente; um plugin só valeria para reaproveitar/distribuir entre projetos. Reavaliar se surgir um 2º projeto.
+- **Por quê:** manter o ambiente simples e não adicionar integração só porque é possível (regra permanente de produto/processo).
+- **Fluxo de PRs:** preferir **uma branch por tema → um PR pequeno** desde o início (evita a dança de rebase/empilhamento que tivemos ao separar a Fase 1 retroativamente).
+- **Reflete em:** `docs/ROADMAP.md` (Fase 4), `APP_CONTEXT.md` §76.

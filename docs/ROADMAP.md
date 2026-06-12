@@ -74,6 +74,7 @@ Objetivo: provar `cadastrar livro → iniciar leitura → anotar rápido → fin
 - [ ] Autenticação e isolamento por usuário (testar A/B)
 - [ ] Contas individuais para 3–5 testers
 - [ ] Feedback dentro do app + painel admin básico
+- [ ] Avaliar **Supabase MCP** para apoiar schema/queries/RLS (com as travas da §76; sem escrita em produção sem revisão)
 
 ## Fase 5 — PDF no aplicativo
 
