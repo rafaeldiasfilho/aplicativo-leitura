@@ -16,7 +16,8 @@
 
 ## Backlog próximo (Fase 3)
 
-- [ ] Mural separado (sem pausar o timer) + balões sugeridos
+- [x] Mural (lousa) — overlay no Modo Leitura, balões arrastáveis, timer correndo — via §90
+- [ ] Balões sugeridos (até 5, posição fixa na sessão, sem sobrepor)
 - [ ] Mente com cérebro central e categorias automáticas simples
 
 ## Bloqueado / aguardando autorização

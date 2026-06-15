@@ -262,3 +262,31 @@ Validado com typecheck/lint/build (`/leitura?id=…` → 200).
 - **Fora de escopo:** anotação expandida com lixeira (§587, depende da Lixeira) e Mural.
 
 Validado com typecheck/lint/build (`/anotacoes` e `/leitura?id=…` → 200).
+
+---
+
+## 2026-06-15 — Look do Mural (lousa, Fase 3) pelo processo §90
+
+**Contexto:** o Mural é a lousa onde as anotações da sessão viram balões livres (§16). É tela principal → processo de variações. Os balões mantêm a identidade dos tipos (`NoteItem`, §16); a variação é da **superfície da lousa** e do tratamento de profundidade dos balões.
+
+### Processo
+
+- **3 variações** estáticas em `/design-lab` (mock):
+  - **V1 — Mesa de papel:** lousa de papel claro, balões com sombra suave.
+  - **V2 — Cortiça (alfinete):** tom quente + alfinete em cada balão.
+  - **V3 — Lousa pontilhada:** grade de pontos sutil (planner) + sombra difusa.
+- **Escolha do usuário:** V2 **e** V3.
+- **V4 — Refinada (escolhida):** lousa quente + **grade de pontos sutil** + balões com **alfinete** e **sombra difusa** (`drop-shadow(0 4px 12px rgba(74,59,48,.16))`).
+  - A lousa é **tokenizada por tema** (`--mural-surface`/`--mural-dot`/`--mural-ink` em `globals.css`): warm clara no tema claro (`#efe7d9`), warm escura no escuro. Necessário porque os balões usam as cores de texto do tema (`NoteItem`) — uma lousa de cor fixa deixaria a anotação **Rápida** ilegível no tema escuro.
+
+### Decisões
+
+- V4 implementada direto na tela real `apps/web/src/app/leitura/mural.tsx` (overlay).
+- **Âncora do livro (enriquecimento):** o Mural ganhou um cabeçalho com a **atmosfera da capa** (gradiente + título/autor, como no Modo Leitura) que "derrete" na lousa, e o tempo com linha viva ("lendo agora"). Decidido para dar alma à lousa sem poluir (a alternativa de "mais informações" foi contida pelo princípio §45 "espaço vazio é design"). Controles (pontos/fechar) moram nesse cabeçalho.
+- **Fundo harmonizado com a capa:** como a cor fixa da lousa brigava com algumas capas (frias/saturadas), o fundo passou a ser `color-mix(in oklab, var(--mural-surface) 88%, cover.to 12%)` — o papel quente do tema com **um sussurro (~12%) da capa**. Sempre harmoniza com o livro, mantém legibilidade (majoritariamente o token neutro) e dá continuidade com a base do cabeçalho.
+- **Pontos opcionais:** toggle "Mostrar/Ocultar pontos" no Mural, persistido em `localStorage` (§21).
+- Arquitetura (overlay vs rota) e interação (arrastar, criar no centro, timer correndo) em `ACTIVE_DECISIONS.md`.
+- `design-lab` **removido** após a decisão (§90).
+- **Fora de escopo:** balões sugeridos (§17), banco.
+
+Validado com typecheck/lint/build (`/leitura?id=…` → 200).

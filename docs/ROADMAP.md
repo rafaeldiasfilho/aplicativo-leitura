@@ -62,9 +62,9 @@ Objetivo: provar `cadastrar livro → iniciar leitura → anotar rápido → fin
 
 ## Fase 3 — Mural e Mente
 
-- [ ] Mural separado (tela tipo lousa)
+- [x] Mural (lousa) — overlay no Modo Leitura, balões arrastáveis (look V4 via §90)
+- [x] Garantir que abrir o Mural não pausa o timer de leitura (overlay no `leitura-view`)
 - [ ] Balões sugeridos (até 5, posição fixa na sessão, sem sobrepor notas)
-- [ ] Garantir que abrir o Mural não pausa o timer de leitura
 - [ ] Mente com cérebro central e categorias automáticas simples
 
 ## Fase 4 — Supabase e beta fechado
