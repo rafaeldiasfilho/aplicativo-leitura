@@ -11,14 +11,9 @@ import {
 import { formatReadingTime } from "@/lib/books";
 import { addNote } from "@/lib/notes-store";
 import type { Note } from "@/lib/notes";
+import { NOTE_TYPES, DEFAULT_NOTE_TYPE, type NoteType } from "@/lib/note-types";
+import { NoteItem } from "@/components/note-item";
 import { Button } from "@/components/ui/button";
-
-// Cores de papel dos post-its do resumo. Provisório: a paleta definitiva por
-// tipo de anotação entra na tarefa "tipos de anotação" da Fase 2.
-const SESSION_PAPER = [
-  { bg: "#f4ecd8", text: "#4a4332" },
-  { bg: "#e7eee6", text: "#36433a" },
-];
 
 // Formata segundos como "MM:SS" ou "H:MM:SS".
 function formatTimer(totalSeconds: number): string {
@@ -45,6 +40,7 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
 
   // Anotação recolhida por padrão (§13).
   const [draft, setDraft] = useState("");
+  const [draftType, setDraftType] = useState<NoteType>(DEFAULT_NOTE_TYPE);
   const [sessionNotes, setSessionNotes] = useState<Note[]>([]);
   const [noteOpen, setNoteOpen] = useState(false);
   const [confirmFinish, setConfirmFinish] = useState(false);
@@ -100,9 +96,10 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
   function saveDraft() {
     const content = draft.trim();
     if (!content || !book) return;
-    const note = addNote({ bookId: book.id, content });
+    const note = addNote({ bookId: book.id, content, type: draftType });
     setSessionNotes((prev) => [note, ...prev]);
     setDraft("");
+    setDraftType(DEFAULT_NOTE_TYPE);
   }
 
   // Finaliza a sessão: congela o tempo, soma ao livro e mostra o resumo.
@@ -171,24 +168,12 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
                   ? "pensamento guardado"
                   : "pensamentos guardados"}
               </p>
-              <ul className="mt-3 flex flex-1 flex-col justify-center gap-2.5">
-                {sessionNotes.map((note, i) => {
-                  const paper = SESSION_PAPER[i % SESSION_PAPER.length];
-                  return (
-                    <li
-                      key={note.id}
-                      className="rounded-xl px-4 py-2.5 text-sm shadow-sm"
-                      style={{
-                        backgroundColor: paper.bg,
-                        color: paper.text,
-                        transform:
-                          i % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
-                      }}
-                    >
-                      {note.content}
-                    </li>
-                  );
-                })}
+              <ul className="mt-3 flex flex-1 flex-col justify-center gap-3">
+                {sessionNotes.map((note) => (
+                  <li key={note.id}>
+                    <NoteItem note={note} />
+                  </li>
+                ))}
               </ul>
               <p className="mt-4 text-center text-xs text-muted">
                 Eles já estão na sua Mente.
@@ -273,6 +258,28 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
               </div>
             ) : noteOpen ? (
               <div>
+                {/* Tipos lado a lado; Rápida é o padrão. Visual neutro —
+                    a identidade de cada tipo entra na Fatia 3 (§90). */}
+                <div className="mb-2 flex flex-wrap gap-1.5">
+                  {NOTE_TYPES.map((t) => {
+                    const selected = t.id === draftType;
+                    return (
+                      <button
+                        key={t.id}
+                        type="button"
+                        onClick={() => setDraftType(t.id)}
+                        aria-pressed={selected}
+                        className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+                          selected
+                            ? "border-accent bg-accent/10 text-foreground"
+                            : "border-border text-muted hover:text-foreground"
+                        }`}
+                      >
+                        {t.label}
+                      </button>
+                    );
+                  })}
+                </div>
                 <textarea
                   value={draft}
                   onChange={(e) => setDraft(e.target.value)}
@@ -300,13 +307,10 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
                 </div>
 
                 {sessionNotes.length > 0 && (
-                  <ul className="mt-3 flex flex-col gap-2">
+                  <ul className="mt-3 flex flex-col gap-3">
                     {sessionNotes.map((note) => (
-                      <li
-                        key={note.id}
-                        className="rounded-xl border border-border bg-background px-4 py-3 text-sm"
-                      >
-                        {note.content}
+                      <li key={note.id}>
+                        <NoteItem note={note} />
                       </li>
                     ))}
                   </ul>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useBooks } from "@/lib/books-store";
 import { useNotes } from "@/lib/notes-store";
 import type { Note } from "@/lib/notes";
+import { NoteItem } from "@/components/note-item";
 import { Button } from "@/components/ui/button";
 
 // Mostra o horário de forma calma: "às 14:32" se for hoje, senão "12/06".
@@ -65,16 +66,10 @@ export default function AnotacoesPage() {
           <h2 className="text-center text-sm font-medium text-foreground">
             {titleById.get(group.bookId) ?? "Livro"}
           </h2>
-          <ul className="mt-3 flex flex-wrap justify-center gap-2">
+          <ul className="mx-auto mt-3 flex max-w-md flex-col gap-3">
             {group.notes.map((note) => (
-              <li
-                key={note.id}
-                className="w-full rounded-2xl border border-border bg-surface px-4 py-3 sm:w-72"
-              >
-                <p className="text-sm leading-relaxed">{note.content}</p>
-                <p className="mt-1.5 text-xs text-muted">
-                  {formatNoteDate(note.createdAt)}
-                </p>
+              <li key={note.id}>
+                <NoteItem note={note} time={formatNoteDate(note.createdAt)} />
               </li>
             ))}
           </ul>

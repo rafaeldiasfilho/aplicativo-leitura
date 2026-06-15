@@ -228,3 +228,37 @@ Validado com typecheck/lint/build (todas as rotas → 200).
 - **Fora de escopo:** animação do "livro fechando" (§24) e resumo no fluxo "Terminei o livro" (mantém o atual).
 
 Validado com typecheck/lint/build (`/leitura?id=…` → 200).
+
+---
+
+## 2026-06-15 — Identidade visual dos tipos de anotação (Fase 2) pelo processo §90
+
+**Contexto:** os tipos de anotação (Rápida · Reflexão · Marca-texto · Post-it, §15) ganham identidade visual própria. Isso substitui o `SESSION_PAPER` provisório deixado no resumo de sessão.
+
+### Decisões de escopo (antes das variações)
+
+- **4 tipos** entram agora; **Marca-texto** como nota livre estilizada (visual de destaque), já que ainda não há leitura de PDF/EPUB para destacar texto real.
+- Ao guardar um pensamento no Modo Leitura, os tipos aparecem **lado a lado**; **Rápida** segue o padrão.
+
+### Processo
+
+- **3 variações** estáticas em `/design-lab` (mock), os 4 tipos no contexto da lista de Anotações:
+  - **V1 — Cor de papel:** cada tipo é uma cor de papel suave (diferença = fundo).
+  - **V2 — Marca lateral:** fundo neutro + faixa lateral colorida + rótulo (sóbrio).
+  - **V3 — Forma/gesto:** cada tipo tem um gesto próprio (linha, citação, realce, papel).
+- **Escolha do usuário:** V3.
+- **V4 — Refinada (escolhida):** gestos de V3 harmonizados para conviverem numa lista, com linha-meta **"Tipo · horário"** dando o nome sem poluir:
+  - **Rápida:** linha fina em acento à esquerda, sem card.
+  - **Reflexão:** card de superfície com aspa, itálico.
+  - **Marca-texto:** realce âmbar suave (`#f4e7bb`) atrás do texto.
+  - **Post-it:** papel quente (`#f4e3d0`) com inclinação leve.
+
+### Decisões
+
+- V4 vira a **fonte única** `components/note-item.tsx`, usada na lista `/anotacoes`, no resumo de sessão e na lista inline do Modo Leitura.
+- `SESSION_PAPER` **removido**; o resumo agora renderiza cada nota pelo seu tipo.
+- O **seletor** de tipos fica neutro (pills com rótulo) — a identidade se revela na anotação renderizada, não na escolha, para não poluir o momento de leitura.
+- `design-lab` **removido** após a decisão (§90).
+- **Fora de escopo:** anotação expandida com lixeira (§587, depende da Lixeira) e Mural.
+
+Validado com typecheck/lint/build (`/anotacoes` e `/leitura?id=…` → 200).
