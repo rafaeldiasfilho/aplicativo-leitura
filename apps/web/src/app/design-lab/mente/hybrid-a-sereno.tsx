@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  MOCK_BOOKS,
   MOCK_THEMES,
   bookById,
   type MenteBook,
@@ -24,10 +23,9 @@ function ring(count: number, radius: number) {
 // todos os temas" abre a lista calma completa. Escala sem virar "mapa confuso".
 export function HybridASereno({
   themes = MOCK_THEMES,
-  books = MOCK_BOOKS,
 }: {
   themes?: MenteTheme[];
-  books?: MenteBook[];
+  books?: MenteBook[]; // aceito (a página passa o dataset), mas a A usa só os temas
 } = {}) {
   const [active, setActive] = useState<string | null>(null);
   const [showList, setShowList] = useState(false);
