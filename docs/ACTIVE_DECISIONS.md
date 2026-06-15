@@ -114,3 +114,16 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - **Por quê:** manter o ambiente simples e não adicionar integração só porque é possível (regra permanente de produto/processo).
 - **Fluxo de PRs:** preferir **uma branch por tema → um PR pequeno** desde o início (evita a dança de rebase/empilhamento que tivemos ao separar a Fase 1 retroativamente).
 - **Reflete em:** `docs/ROADMAP.md` (Fase 4), `APP_CONTEXT.md` §76.
+
+---
+
+## 2026-06-15
+
+### Lixeira — soft delete de anotações (§19)
+- **Decisão:** apagar uma anotação é **soft delete** (`deletedAt` no `Note`): some das Anotações e vai para a **Lixeira**, de onde pode ser **Restaurada** ou **Excluída definitivamente** (irreversível). Nada some sem ação clara do usuário.
+- **Escopo agora:** só **anotações** (ainda não há excluir livro). Sem purga automática. Sem banco (memória, Fase 1).
+- **UX:** apagar é uma **ação sutil por nota** em `/anotacoes`, com **confirmação inline** tanto ao apagar quanto ao excluir definitivamente (escolha do usuário). A Lixeira é **área secundária**, acessada por **Configurações** (§45), não é aba.
+- **Store:** `deleteNote`/`restoreNote`/`purgeNote`; `useNotes` passa a esconder apagados e `useTrashedNotes` alimenta a Lixeira (derivados memorizados para o `useSyncExternalStore`).
+- **Por quê:** proteger contra perda acidental (§19) sem pesar a experiência.
+- **Não é §90:** tela utilitária/secundária, sem peso emocional — feita direto, sem variações.
+- **Reflete em:** `apps/web/src/app/lixeira/page.tsx`, `apps/web/src/app/anotacoes/page.tsx`, `apps/web/src/app/configuracoes/page.tsx`, `lib/notes.ts`, `lib/notes-store.ts`, `lib/dates.ts`, `APP_CONTEXT.md` §19.

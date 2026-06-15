@@ -12,7 +12,7 @@
 
 - [x] Resumo final de sessão (apanhado + post-its ao finalizar) — via §90
 - [x] Tipos de anotação com identidade visual (Rápida · Reflexão · Marca-texto · Post-it) — via §90
-- [ ] Lixeira (soft delete / restaurar)
+- [x] Lixeira (soft delete / restaurar) — anotações; acesso por Configurações
 
 ## Backlog próximo (Fase 3)
 

@@ -8,4 +8,6 @@ export type Note = {
   type: NoteType;
   content: string;
   createdAt: number;
+  // Soft delete (§19): null = ativa; timestamp = na Lixeira.
+  deletedAt: number | null;
 };

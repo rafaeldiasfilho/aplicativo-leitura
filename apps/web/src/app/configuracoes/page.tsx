@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function ConfiguracoesPage() {
@@ -14,6 +15,17 @@ export default function ConfiguracoesPage() {
           <span className="text-sm text-muted">Tema</span>
           <ThemeToggle />
         </div>
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h2 className="text-sm font-medium">Seus dados</h2>
+        <Link
+          href="/lixeira"
+          className="flex items-center justify-between text-sm text-muted transition-colors hover:text-foreground"
+        >
+          <span>Lixeira</span>
+          <span aria-hidden>›</span>
+        </Link>
       </section>
     </main>
   );
