@@ -127,3 +127,13 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - **Por quê:** proteger contra perda acidental (§19) sem pesar a experiência.
 - **Não é §90:** tela utilitária/secundária, sem peso emocional — feita direto, sem variações.
 - **Reflete em:** `apps/web/src/app/lixeira/page.tsx`, `apps/web/src/app/anotacoes/page.tsx`, `apps/web/src/app/configuracoes/page.tsx`, `lib/notes.ts`, `lib/notes-store.ts`, `lib/dates.ts`, `APP_CONTEXT.md` §19.
+
+### Mural (lousa) — overlay dentro do Modo Leitura (§16/§17)
+- **Decisão:** o Mural é um **overlay no `leitura-view`**, não uma rota própria (`/mural`).
+- **Por quê:** a regra do timer (§16: abrir o Mural **não pausa** a leitura). O timer vive em memória no `leitura-view`; navegar para uma rota separada zeraria o estado. Como overlay no mesmo componente, o tempo segue correndo. Quando houver sessão persistida (banco), pode virar rota.
+- **Interação:** balões **arrastáveis** (pointer events + `setPointerCapture`), posição guardada em memória no `leitura-view` (`positions`) — estável entre abrir/fechar a lousa na mesma sessão (§17). Posição padrão determinística pelo índice. Nova anotação **nasce no centro** (§16). Os balões reusam a identidade dos tipos (`NoteItem`, §16) e **não somem ao clicar**.
+- **Look (§90):** processo de variações (V1 Mesa de papel · V2 Cortiça/alfinete · V3 Lousa pontilhada → **V4 = V2+V3**: lousa quente `#efe7d9` + grade de pontos sutil + balões com alfinete e sombra difusa). Detalhe em `VISUAL_DECISIONS.md`.
+- **Pontos opcionais:** toggle "Mostrar/Ocultar pontos" no próprio Mural, persistido em `localStorage` (`mural-dots`, padrão ligado) — personalização leve (§21).
+- **Transição:** abre/fecha com fade+scale suave (§16); fecha com Esc.
+- **Fora de escopo agora:** balões sugeridos (§17), banco/sessão persistida.
+- **Reflete em:** `apps/web/src/app/leitura/mural.tsx`, `apps/web/src/app/leitura/leitura-view.tsx`, `APP_CONTEXT.md` §16/§17.

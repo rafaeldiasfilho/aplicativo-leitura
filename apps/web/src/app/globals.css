@@ -25,6 +25,11 @@
   /* Acento sereno (sálvia) — usar com parcimônia */
   --accent: #4f6f64;
   --accent-foreground: #ffffff;
+
+  /* Mural (lousa) — superfície quente que acompanha o tema (§16/§90 V4) */
+  --mural-surface: #efe7d9;
+  --mural-dot: rgba(74, 59, 48, 0.12);
+  --mural-ink: #4a3b30;
 }
 
 /* Tokens escuros — aplicados pelo tema do sistema (quando não há override claro). */
@@ -38,6 +43,9 @@
     --muted: #a3a09a;
     --accent: #8fb3a5;
     --accent-foreground: #141413;
+    --mural-surface: #221d19;
+    --mural-dot: rgba(255, 255, 255, 0.06);
+    --mural-ink: #d8cfc4;
   }
 }
 
@@ -51,6 +59,9 @@
   --muted: #a3a09a;
   --accent: #8fb3a5;
   --accent-foreground: #141413;
+  --mural-surface: #221d19;
+  --mural-dot: rgba(255, 255, 255, 0.06);
+  --mural-ink: #d8cfc4;
 }
 
 @theme inline {

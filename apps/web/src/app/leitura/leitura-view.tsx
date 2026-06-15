@@ -13,6 +13,7 @@ import { addNote } from "@/lib/notes-store";
 import type { Note } from "@/lib/notes";
 import { NOTE_TYPES, DEFAULT_NOTE_TYPE, type NoteType } from "@/lib/note-types";
 import { NoteItem } from "@/components/note-item";
+import { Mural, type Pos } from "./mural";
 import { Button } from "@/components/ui/button";
 
 // Formata segundos como "MM:SS" ou "H:MM:SS".
@@ -44,6 +45,9 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
   const [sessionNotes, setSessionNotes] = useState<Note[]>([]);
   const [noteOpen, setNoteOpen] = useState(false);
   const [confirmFinish, setConfirmFinish] = useState(false);
+  // Mural (overlay): aberto/fechado e posições dos balões na sessão (§17).
+  const [muralOpen, setMuralOpen] = useState(false);
+  const [positions, setPositions] = useState<Record<string, Pos>>({});
   // Resumo final: segundos da sessão concluída (null = sessão ainda em curso).
   const [finishedSeconds, setFinishedSeconds] = useState<number | null>(null);
 
@@ -100,6 +104,18 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
     setSessionNotes((prev) => [note, ...prev]);
     setDraft("");
     setDraftType(DEFAULT_NOTE_TYPE);
+  }
+
+  // Cria uma anotação direto no Mural, já posicionada (nasce no centro, §16).
+  function createInMural(content: string, type: NoteType, pos: Pos) {
+    if (!book) return;
+    const note = addNote({ bookId: book.id, content, type });
+    setSessionNotes((prev) => [note, ...prev]);
+    setPositions((prev) => ({ ...prev, [note.id]: pos }));
+  }
+
+  function moveBalloon(id: string, pos: Pos) {
+    setPositions((prev) => ({ ...prev, [id]: pos }));
   }
 
   // Finaliza a sessão: congela o tempo, soma ao livro e mostra o resumo.
@@ -330,17 +346,39 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
                     </span>
                   )}
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setConfirmFinish(true)}
-                  className="text-xs text-muted underline transition-colors hover:text-foreground"
-                >
-                  Terminei o livro
-                </button>
+                <div className="flex items-center gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setMuralOpen(true)}
+                    className="text-xs text-muted transition-colors hover:text-foreground"
+                  >
+                    Mural
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmFinish(true)}
+                    className="text-xs text-muted underline transition-colors hover:text-foreground"
+                  >
+                    Terminei o livro
+                  </button>
+                </div>
               </div>
             )}
           </div>
         </>
+      )}
+
+      {muralOpen && (
+        <Mural
+          book={book}
+          notes={sessionNotes}
+          positions={positions}
+          onMove={moveBalloon}
+          onCreate={createInMural}
+          onClose={() => setMuralOpen(false)}
+          timerLabel={formatTimer(elapsed)}
+          running={running}
+        />
       )}
     </main>
   );
