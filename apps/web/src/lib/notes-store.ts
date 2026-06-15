@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import type { Note } from "./notes";
+import { DEFAULT_NOTE_TYPE, type NoteType } from "./note-types";
 
 // Store de anotações em memória (Fase 1, sem banco). Volta a vazio ao recarregar.
 let notes: Note[] = [];
@@ -27,10 +28,15 @@ function getServerSnapshot() {
   return EMPTY;
 }
 
-export function addNote(input: { bookId: string; content: string }): Note {
+export function addNote(input: {
+  bookId: string;
+  content: string;
+  type?: NoteType;
+}): Note {
   const note: Note = {
     id: `n${Date.now()}`,
     bookId: input.bookId,
+    type: input.type ?? DEFAULT_NOTE_TYPE,
     content: input.content,
     createdAt: Date.now(),
   };

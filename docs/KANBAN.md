@@ -11,7 +11,7 @@
 ## Agora (Fase 2 — UX de leitura e anotações)
 
 - [x] Resumo final de sessão (apanhado + post-its ao finalizar) — via §90
-- [ ] Tipos de anotação com identidade visual (Rápida · Reflexão · Marca-texto · Post-it)
+- [x] Tipos de anotação com identidade visual (Rápida · Reflexão · Marca-texto · Post-it) — via §90
 - [ ] Lixeira (soft delete / restaurar)
 
 ## Backlog próximo (Fase 3)
