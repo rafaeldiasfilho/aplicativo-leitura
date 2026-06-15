@@ -137,3 +137,13 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - **Transição:** abre/fecha com fade+scale suave (§16); fecha com Esc.
 - **Fora de escopo agora:** balões sugeridos (§17), banco/sessão persistida.
 - **Reflete em:** `apps/web/src/app/leitura/mural.tsx`, `apps/web/src/app/leitura/leitura-view.tsx`, `APP_CONTEXT.md` §16/§17.
+
+### Balões sugeridos no Mural (§17)
+- **Decisão:** até **5** balões sugeridos (fantasma **tracejado**, distinto do papel das notas) com **perguntas de reflexão** curadas (§23), depois que a leitura começou.
+- **Cadência (liberação por tempo, não em rajada):** um novo sugerido a cada ~2 min de **leitura real** acumulada (`SUGGESTION_INTERVAL_S`), começando com **1** — as ideias de anotação demoram a vir, então não despeja os 5 de uma vez. Some conforme o leitor escreve; acaba em 5 notas, e daí o leitor cria os próprios (§17).
+- **Chamado (calmo, §9 estilo Apple):** ao abrir o Mural, os já liberados entram com leve escalonamento (`mural-fade-in`); o chamado de atenção combina **respiração** (`mural-breathe`) + **halo de acento** sálvia (`mural-halo`) — escolhidos num demo de 4 variações. Keyframes em `globals.css`. Descartado **piscar** (briga com a calma).
+- **Consumo:** tocar um sugerido abre o composer naquele ponto (o prompt vira *placeholder*); ao guardar, vira **nota real** ali e aquele **slot é consumido** (`consumedSlots` no `leitura-view`), mantendo os demais no mesmo lugar.
+- **Fechar/dispensar:** cada sugerido tem um **×** para dispensar individualmente (`dismissedSlots`, não volta na sessão); e um interruptor global **"Sugestões"** no cabeçalho desliga todos, lembrado em `localStorage` (como os pontos).
+- **Posições:** **slots fixos periféricos** (determinísticos pelo índice), longe do centro onde as notas nascem; estáveis entre abrir/fechar (§17).
+- **Estabilidade > não-sobreposição:** o §17 prioriza posição estável (anti-estresse). Por isso os slots são fixos e **não** recalculados para nunca encostar numa nota — recalcular moveria balões e geraria o estresse que o §17 quer evitar. Como os slots são periféricos e as notas nascem no centro, a sobreposição é rara.
+- **Reflete em:** `apps/web/src/app/leitura/mural.tsx`, `apps/web/src/app/leitura/leitura-view.tsx`, `APP_CONTEXT.md` §17.

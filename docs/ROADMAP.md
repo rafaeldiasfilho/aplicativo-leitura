@@ -68,7 +68,7 @@ Objetivo: provar `cadastrar livro → iniciar leitura → anotar rápido → fin
 
 - [x] Mural (lousa) — overlay no Modo Leitura, balões arrastáveis (look V4 via §90)
 - [x] Garantir que abrir o Mural não pausa o timer de leitura (overlay no `leitura-view`)
-- [ ] Balões sugeridos (até 5, posição fixa na sessão, sem sobrepor notas)
+- [x] Balões sugeridos (até 5, posição fixa na sessão; fantasma tracejado, somem ao escrever)
 - [ ] Mente com cérebro central e categorias automáticas simples
 
 ## Fase 4 — Supabase e beta fechado
