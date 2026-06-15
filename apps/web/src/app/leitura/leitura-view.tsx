@@ -48,6 +48,9 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
   // Mural (overlay): aberto/fechado e posições dos balões na sessão (§17).
   const [muralOpen, setMuralOpen] = useState(false);
   const [positions, setPositions] = useState<Record<string, Pos>>({});
+  // Balões sugeridos já preenchidos ou dispensados (§17): persistem na sessão.
+  const [consumedSlots, setConsumedSlots] = useState<number[]>([]);
+  const [dismissedSlots, setDismissedSlots] = useState<number[]>([]);
   // Resumo final: segundos da sessão concluída (null = sessão ainda em curso).
   const [finishedSeconds, setFinishedSeconds] = useState<number | null>(null);
 
@@ -116,6 +119,27 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
 
   function moveBalloon(id: string, pos: Pos) {
     setPositions((prev) => ({ ...prev, [id]: pos }));
+  }
+
+  // Preenche um balão sugerido: vira nota real naquele ponto e o sugerido
+  // some (slot consumido), mantendo os demais no mesmo lugar (§17).
+  function fillSuggestion(
+    index: number,
+    content: string,
+    type: NoteType,
+    pos: Pos,
+  ) {
+    createInMural(content, type, pos);
+    setConsumedSlots((prev) =>
+      prev.includes(index) ? prev : [...prev, index],
+    );
+  }
+
+  // Dispensa um balão sugerido sem escrevê-lo (§17): não volta nesta sessão.
+  function dismissSuggestion(index: number) {
+    setDismissedSlots((prev) =>
+      prev.includes(index) ? prev : [...prev, index],
+    );
   }
 
   // Finaliza a sessão: congela o tempo, soma ao livro e mostra o resumo.
@@ -373,8 +397,14 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
           book={book}
           notes={sessionNotes}
           positions={positions}
+          consumedSlots={consumedSlots}
+          dismissedSlots={dismissedSlots}
+          started={started}
+          elapsedSeconds={elapsed}
           onMove={moveBalloon}
           onCreate={createInMural}
+          onFillSuggestion={fillSuggestion}
+          onDismissSuggestion={dismissSuggestion}
           onClose={() => setMuralOpen(false)}
           timerLabel={formatTimer(elapsed)}
           running={running}

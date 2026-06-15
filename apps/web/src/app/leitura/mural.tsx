@@ -9,7 +9,22 @@ import { Button } from "@/components/ui/button";
 export type Pos = { x: number; y: number };
 
 const BALLOON_W = 208; // w-52
+const SUGG_W = 160; // w-40 — sugeridos são prompts curtos
 const DOTS_KEY = "mural-dots";
+const SUGG_KEY = "mural-suggestions";
+
+// Perguntas de reflexão dos balões sugeridos (§17/§23). Ordem fixa → estável.
+const SUGGESTIONS = [
+  "Uma frase que ficou com você?",
+  "Uma ideia para lembrar depois?",
+  "Uma conexão com sua vida?",
+  "Algo de que você discordou?",
+  "Uma pergunta que surgiu?",
+];
+
+// Um novo sugerido é liberado a cada ~2 min de leitura real — as ideias de
+// anotação demoram a vir; não faz sentido despejar os 5 de uma vez (§17).
+const SUGGESTION_INTERVAL_S = 120;
 
 // Posição padrão para um balão ainda sem posição própria: centralizado na
 // lousa (igual ao que nasce pelo ＋), com leve escalonamento por índice para
@@ -17,6 +32,24 @@ const DOTS_KEY = "mural-dots";
 function defaultPos(index: number, w: number, h: number): Pos {
   const off = (index % 6) * 16;
   return { x: w / 2 - BALLOON_W / 2 + off, y: Math.max(72, h / 2 - 56) + off };
+}
+
+// Slots fixos (periféricos, longe do centro onde nascem as notas) dos balões
+// sugeridos. Estáveis na sessão (§17). Frações da lousa, com x preso à tela.
+const SLOT_FRACTIONS = [
+  { fx: 0.05, fy: 0.3 },
+  { fx: 0.5, fy: 0.22 },
+  { fx: 0.08, fy: 0.64 },
+  { fx: 0.5, fy: 0.68 },
+  { fx: 0.28, fy: 0.84 },
+];
+
+function slotPos(index: number, w: number, h: number): Pos {
+  const f = SLOT_FRACTIONS[index];
+  return {
+    x: Math.max(16, Math.min(f.fx * w, w - SUGG_W - 16)),
+    y: Math.max(72, f.fy * h),
+  };
 }
 
 // Um balão arrastável. Mantém a identidade do tipo (NoteItem, §16) e ganha
@@ -85,8 +118,14 @@ export function Mural({
   book,
   notes,
   positions,
+  consumedSlots,
+  dismissedSlots,
+  started,
+  elapsedSeconds,
   onMove,
   onCreate,
+  onFillSuggestion,
+  onDismissSuggestion,
   onClose,
   timerLabel,
   running,
@@ -94,15 +133,26 @@ export function Mural({
   book: { title: string; author: string; cover: { from: string; to: string } };
   notes: Note[];
   positions: Record<string, Pos>;
+  consumedSlots: number[];
+  dismissedSlots: number[];
+  started: boolean;
+  elapsedSeconds: number;
   onMove: (id: string, p: Pos) => void;
   onCreate: (content: string, type: NoteType, pos: Pos) => void;
+  onFillSuggestion: (
+    index: number,
+    content: string,
+    type: NoteType,
+    pos: Pos,
+  ) => void;
+  onDismissSuggestion: (index: number) => void;
   onClose: () => void;
   timerLabel: string;
   running: boolean;
 }) {
   const boardRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  // Tamanho da lousa (overlay tela cheia) para centralizar os balões.
+  // Tamanho da lousa (overlay tela cheia) para centralizar/posicionar balões.
   const [size, setSize] = useState(() =>
     typeof window === "undefined"
       ? { w: 360, h: 640 }
@@ -113,7 +163,17 @@ export function Mural({
       ? true
       : window.localStorage.getItem(DOTS_KEY) !== "off",
   );
-  const [composing, setComposing] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(() =>
+    typeof window === "undefined"
+      ? true
+      : window.localStorage.getItem(SUGG_KEY) !== "off",
+  );
+  // compose: null = fechado; index null = balão livre (＋); index = sugerido.
+  const [compose, setCompose] = useState<{
+    index: number | null;
+    pos: Pos;
+    prompt?: string;
+  } | null>(null);
   const [text, setText] = useState("");
   const [type, setType] = useState<NoteType>(DEFAULT_NOTE_TYPE);
 
@@ -155,16 +215,42 @@ export function Mural({
     });
   }
 
-  // Nova anotação nasce no centro da lousa (§16).
+  function toggleSuggestions() {
+    setShowSuggestions((prev) => {
+      const next = !prev;
+      window.localStorage.setItem(SUGG_KEY, next ? "on" : "off");
+      return next;
+    });
+  }
+
   function saveComposer() {
     const content = text.trim();
-    if (!content) return;
-    const pos: Pos = { x: size.w / 2 - BALLOON_W / 2, y: size.h / 2 - 56 };
-    onCreate(content, type, pos);
+    if (!content || !compose) return;
+    if (compose.index === null) {
+      onCreate(content, type, compose.pos);
+    } else {
+      onFillSuggestion(compose.index, content, type, compose.pos);
+    }
     setText("");
     setType(DEFAULT_NOTE_TYPE);
-    setComposing(false);
+    setCompose(null);
   }
+
+  // Sugeridos visíveis: liberados aos poucos (1 a cada ~2 min de leitura),
+  // sem os preenchidos nem os dispensados, e some tudo em 5 notas (§17).
+  const unlocked = Math.min(
+    5,
+    1 + Math.floor(elapsedSeconds / SUGGESTION_INTERVAL_S),
+  );
+  const suggestions =
+    started && showSuggestions && notes.length < 5
+      ? SUGGESTIONS.map((prompt, i) => ({ prompt, i })).filter(
+          (s) =>
+            s.i < unlocked &&
+            !consumedSlots.includes(s.i) &&
+            !dismissedSlots.includes(s.i),
+        )
+      : [];
 
   return (
     <div
@@ -203,32 +289,42 @@ export function Mural({
             </h2>
             <p className="truncate text-xs text-white/80">{book.author}</p>
           </div>
-          <div className="flex shrink-0 items-center gap-4 text-xs text-white/85">
+          <button
+            type="button"
+            onClick={requestClose}
+            className="shrink-0 text-xs text-white/85 transition-colors hover:text-white"
+          >
+            Fechar
+          </button>
+        </div>
+        <div className="mt-3 flex items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-white/80">
+            <span className="tabular-nums">{timerLabel}</span>
+            {running && (
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-white/70" />
+            )}
+            <span className="text-white/60">
+              {running ? "lendo agora" : "leitura pausada"}
+            </span>
+          </div>
+          <div className="flex items-center gap-3 text-white/85">
             <button
               type="button"
               onClick={toggleDots}
               aria-pressed={showDots}
-              className="transition-colors hover:text-white"
+              className={`transition-opacity hover:text-white ${showDots ? "" : "opacity-50"}`}
             >
-              {showDots ? "Ocultar pontos" : "Mostrar pontos"}
+              Pontos
             </button>
             <button
               type="button"
-              onClick={requestClose}
-              className="transition-colors hover:text-white"
+              onClick={toggleSuggestions}
+              aria-pressed={showSuggestions}
+              className={`transition-opacity hover:text-white ${showSuggestions ? "" : "opacity-50"}`}
             >
-              Fechar
+              Sugestões
             </button>
           </div>
-        </div>
-        <div className="mt-3 flex items-center gap-2 text-xs text-white/80">
-          <span className="tabular-nums">{timerLabel}</span>
-          {running && (
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-white/70" />
-          )}
-          <span className="text-white/60">
-            {running ? "lendo agora" : "leitura pausada"}
-          </span>
         </div>
         <div
           aria-hidden
@@ -239,8 +335,8 @@ export function Mural({
         />
       </header>
 
-      {/* Balões */}
-      {notes.length === 0 && !composing && (
+      {/* Lousa vazia (sem notas nem sugeridos) */}
+      {notes.length === 0 && suggestions.length === 0 && !compose && (
         <p
           className="absolute left-1/2 top-1/2 w-64 -translate-x-1/2 -translate-y-1/2 text-center text-sm opacity-70"
           style={{ color: "var(--mural-ink)" }}
@@ -248,6 +344,58 @@ export function Mural({
           Sua lousa está limpa. Toque em ＋ para soltar o primeiro pensamento.
         </p>
       )}
+
+      {/* Balões sugeridos (fantasma tracejado) — convites a escrever (§17).
+          Entrada escalonada (wrapper, atraso por índice visível) + chamado
+          calmo no balão (respiração + halo de acento, §1+§3 escolhidos). */}
+      {suggestions.map((s, idx) => {
+        const pos = slotPos(s.i, size.w, size.h);
+        return (
+          <div
+            key={`sugg-${s.i}`}
+            className="absolute"
+            style={{
+              left: pos.x,
+              top: pos.y,
+              animation: "mural-fade-in 0.5s ease-out both",
+              animationDelay: `${idx * 0.35}s`,
+            }}
+          >
+            <div
+              className="relative w-40 rounded-xl border-2 border-dashed hover:[animation-play-state:paused]"
+              style={{
+                animation:
+                  "mural-breathe 3s ease-in-out infinite, mural-halo 2.8s ease-in-out infinite",
+                borderColor:
+                  "color-mix(in oklab, var(--mural-ink) 40%, transparent)",
+                color: "color-mix(in oklab, var(--mural-ink) 78%, transparent)",
+                backgroundColor:
+                  "color-mix(in oklab, var(--mural-surface) 50%, transparent)",
+              }}
+            >
+              <button
+                type="button"
+                onClick={() =>
+                  setCompose({ index: s.i, pos, prompt: s.prompt })
+                }
+                className="block w-full px-4 py-3 pr-7 text-left text-sm leading-snug"
+              >
+                {s.prompt}
+              </button>
+              <button
+                type="button"
+                onClick={() => onDismissSuggestion(s.i)}
+                aria-label="Dispensar sugestão"
+                className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full text-sm leading-none opacity-60 transition-opacity hover:opacity-100"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Notas reais */}
       {notes.map((note, i) => (
         <Balloon
           key={note.id}
@@ -258,8 +406,8 @@ export function Mural({
         />
       ))}
 
-      {/* Composer central */}
-      {composing && (
+      {/* Composer central (balão livre ou preenchimento de um sugerido) */}
+      {compose && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/10 px-6">
           <div className="w-full max-w-sm rounded-2xl border border-border bg-surface p-4 shadow-lg">
             <div className="mb-2 flex flex-wrap gap-1.5">
@@ -285,7 +433,7 @@ export function Mural({
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="Soltar um pensamento na lousa…"
+              placeholder={compose.prompt ?? "Soltar um pensamento na lousa…"}
               rows={2}
               autoFocus
               className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
@@ -293,7 +441,7 @@ export function Mural({
             <div className="mt-2 flex items-center justify-between">
               <button
                 type="button"
-                onClick={() => setComposing(false)}
+                onClick={() => setCompose(null)}
                 className="text-xs text-muted transition-colors hover:text-foreground"
               >
                 Cancelar
@@ -312,10 +460,15 @@ export function Mural({
       )}
 
       {/* "+" para soltar um balão no centro */}
-      {!composing && (
+      {!compose && (
         <button
           type="button"
-          onClick={() => setComposing(true)}
+          onClick={() =>
+            setCompose({
+              index: null,
+              pos: { x: size.w / 2 - BALLOON_W / 2, y: size.h / 2 - 56 },
+            })
+          }
           aria-label="Soltar um pensamento"
           className="absolute bottom-6 right-6 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-2xl text-accent-foreground shadow-lg transition-transform hover:scale-105"
         >

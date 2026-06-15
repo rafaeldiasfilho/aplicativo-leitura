@@ -10,7 +10,7 @@
 
 ## Agora (Fase 3 — Mural e Mente)
 
-- [ ] Balões sugeridos (até 5, posição fixa na sessão, sem sobrepor)
+- [x] Balões sugeridos (até 5, fantasma tracejado, slots fixos, somem ao escrever) — §17
 - [ ] Mente com cérebro central e categorias automáticas simples
 
 ## Bloqueado / aguardando autorização
