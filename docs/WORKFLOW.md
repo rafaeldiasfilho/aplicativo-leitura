@@ -33,9 +33,11 @@ pnpm build
 
 (Quando houver testes: `pnpm test`.) Build passando **não** significa experiência funcionando — testar o fluxo manualmente.
 
-## Telas importantes → processo de variações
+## Telas importantes e momentos emocionais → processo de variações
 
-Antes de Home, Biblioteca, Modo Leitura, Mural e Mente: **3 variações estáticas → escolher → 4ª refinada → revisar com o usuário → só então implementar**, em `design-lab`/mock, sem banco. Registrar em `VISUAL_DECISIONS.md` (ver `APP_CONTEXT.md` §90).
+Antes de uma **tela principal** (Home, Biblioteca, Modo Leitura, Mural, Mente) **ou de qualquer tela/momento com peso emocional** (ex.: resumo de sessão, conclusão de livro, onboarding, vazios acolhedores): **3 variações estáticas → escolher → 4ª refinada → revisar com o usuário → só então implementar**, em `design-lab`/mock, sem banco. Registrar em `VISUAL_DECISIONS.md` (ver `APP_CONTEXT.md` §90).
+
+> Na dúvida se uma tela "conta", trate como se contasse — o custo das variações é baixo e elas evitam fixar um visual ruim cedo demais.
 
 ## Git
 

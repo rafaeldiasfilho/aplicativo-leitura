@@ -10,7 +10,7 @@
 
 ## Agora (Fase 2 — UX de leitura e anotações)
 
-- [ ] Resumo final de sessão (apanhado das anotações ao finalizar)
+- [x] Resumo final de sessão (apanhado + post-its ao finalizar) — via §90
 - [ ] Tipos de anotação com identidade visual (Rápida · Reflexão · Marca-texto · Post-it)
 - [ ] Lixeira (soft delete / restaurar)
 

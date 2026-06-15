@@ -45,9 +45,10 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - **Reflete em:** `globals.css`, `VISUAL_DECISIONS.md`.
 
 ### Processo de decisão visual por variações
-- **Decisão:** antes de telas importantes (Home, Biblioteca, Modo Leitura, Mural, Mente), criar **3 variações estáticas → escolher → 4ª refinada → revisar com o usuário → só então implementar**, em `design-lab`/mock (sem banco/auth/lógica real), registrando a escolha em `VISUAL_DECISIONS.md`.
-- **Por quê:** evitar implementar uma tela ruim cedo demais.
-- **Reflete em:** `APP_CONTEXT.md` §90 (o design-lab descartável é §89.9).
+- **Decisão:** antes de uma **tela principal** (Home, Biblioteca, Modo Leitura, Mural, Mente) **ou de qualquer tela/momento com peso emocional** (resumo de sessão, conclusão de livro, onboarding, vazios acolhedores), criar **3 variações estáticas → escolher → 4ª refinada → revisar com o usuário → só então implementar**, em `design-lab`/mock (sem banco/auth/lógica real), registrando a escolha em `VISUAL_DECISIONS.md`.
+- **Por quê:** evitar implementar uma tela ruim cedo demais; telas com peso emocional são parte do coração do produto.
+- **Atualização (2026-06-12):** regra **ampliada** para abranger momentos emocionais, não só as cinco telas-âncora (gatilho: resumo final de sessão). Na dúvida se uma tela "conta", tratar como se contasse.
+- **Reflete em:** `docs/WORKFLOW.md`, `APP_CONTEXT.md` §90 (o design-lab descartável é §89.9).
 
 ### Stack e estrutura
 - **Decisão:** monorepo **pnpm + Turborepo**; `apps/web` em **Next.js 16 (App Router) + React 19 + TypeScript + Tailwind 4**; desenvolvimento dentro do **Dev Container**.

@@ -204,3 +204,27 @@ Validado com typecheck/lint/build (`/leitura?id=…` → 200).
 - Centralizar a Biblioteca fica bom com poucos livros; quando a coleção crescer para dezenas, reavaliar se o alinhamento à esquerda (estante preenchendo) fica melhor.
 
 Validado com typecheck/lint/build (todas as rotas → 200).
+
+---
+
+## 2026-06-12 — Resumo final de sessão (Fase 2) pelo processo §90
+
+**Contexto:** o resumo é o momento de conclusão da leitura (parte do coração do Modo Leitura). Voltamos ao processo de variações antes de fixar o visual.
+
+### Processo
+
+- **3 variações** estáticas em `/design-lab/resumo` (mock):
+  - **V1 — Atmosfera:** capa no topo, tempo + anotações equilibrados.
+  - **V2 — Tempo de vida:** o tempo lido em destaque (métrica emocional §14), anotações recolhidas.
+  - **V3 — Diário:** anotações como post-its de papel, tempo discreto.
+- **Escolha do usuário:** V1 **e** V3.
+- **V4 — Refinada (escolhida):** atmosfera da capa + tempo de conclusão (de V1) com **contagem de pensamentos**, anotações como **post-its de papel inclinados** e o fecho "Eles já estão na sua Mente" (de V3).
+
+### Decisões
+
+- V4 **promovida** para o estado de resumo da tela real `/leitura` (`leitura-view.tsx`).
+- Cores de papel dos post-its são **provisórias** (`SESSION_PAPER`) — a paleta definitiva por tipo de anotação entra na tarefa "tipos de anotação" da Fase 2.
+- `design-lab` **removido** após a decisão (§90).
+- **Fora de escopo:** animação do "livro fechando" (§24) e resumo no fluxo "Terminei o livro" (mantém o atual).
+
+Validado com typecheck/lint/build (`/leitura?id=…` → 200).

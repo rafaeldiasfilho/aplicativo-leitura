@@ -8,9 +8,17 @@ import {
   finishBook,
   useBooks,
 } from "@/lib/books-store";
+import { formatReadingTime } from "@/lib/books";
 import { addNote } from "@/lib/notes-store";
 import type { Note } from "@/lib/notes";
 import { Button } from "@/components/ui/button";
+
+// Cores de papel dos post-its do resumo. Provisório: a paleta definitiva por
+// tipo de anotação entra na tarefa "tipos de anotação" da Fase 2.
+const SESSION_PAPER = [
+  { bg: "#f4ecd8", text: "#4a4332" },
+  { bg: "#e7eee6", text: "#36433a" },
+];
 
 // Formata segundos como "MM:SS" ou "H:MM:SS".
 function formatTimer(totalSeconds: number): string {
@@ -40,6 +48,8 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
   const [sessionNotes, setSessionNotes] = useState<Note[]>([]);
   const [noteOpen, setNoteOpen] = useState(false);
   const [confirmFinish, setConfirmFinish] = useState(false);
+  // Resumo final: segundos da sessão concluída (null = sessão ainda em curso).
+  const [finishedSeconds, setFinishedSeconds] = useState<number | null>(null);
 
   useEffect(() => {
     if (!running) return;
@@ -95,10 +105,13 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
     setDraft("");
   }
 
+  // Finaliza a sessão: congela o tempo, soma ao livro e mostra o resumo.
   function finishSession() {
     if (!book) return;
-    addReadingMinutes(book.id, Math.round(currentSeconds() / 60));
-    router.push("/");
+    const secs = currentSeconds();
+    pause();
+    addReadingMinutes(book.id, Math.round(secs / 60));
+    setFinishedSeconds(secs);
   }
 
   function finishBookAndLeave() {
@@ -136,126 +149,195 @@ export function LeituraView({ bookId }: { bookId: string | null }) {
         <p className="mt-1 text-xs text-white/80">{book.progress}% lido</p>
       </header>
 
-      {/* Timer em destaque */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6 py-10 text-center">
-        <span className="font-mono text-6xl tabular-nums tracking-tight">
-          {formatTimer(elapsed)}
-        </span>
-        <span className="mt-2 text-xs text-muted">
-          {running ? "Lendo agora" : started ? "Pausado" : "Pronto para começar"}
-        </span>
-
-        <div className="mt-7 flex gap-3">
-          {!started && (
-            <Button type="button" onClick={start}>
-              Iniciar leitura
-            </Button>
-          )}
-          {running && (
-            <Button type="button" onClick={pause}>
-              Pausar
-            </Button>
-          )}
-          {started && !running && (
-            <>
-              <Button type="button" onClick={start}>
-                Retomar
-              </Button>
-              <Button type="button" variant="secondary" onClick={finishSession}>
-                Finalizar
-              </Button>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* Folha de anotação (recolhida por padrão) */}
-      <div className="rounded-t-3xl border-t border-border bg-surface px-6 py-5">
-        <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-border" />
-
-        {confirmFinish ? (
-          <div className="flex flex-col items-center gap-3 text-center">
-            <p className="text-sm text-muted">
-              Marcar “{book.title}” como lido no aplicativo?
+      {finishedSeconds !== null ? (
+        /* Resumo final da sessão (layout V4 via §90) */
+        <div className="flex flex-1 flex-col px-6 py-8">
+          <div className="text-center">
+            <p className="text-sm text-muted">Sessão concluída</p>
+            <p className="mt-2 text-2xl font-medium tracking-tight">
+              Você leu por{" "}
+              {finishedSeconds >= 60
+                ? formatReadingTime(Math.round(finishedSeconds / 60))
+                : "menos de um minuto"}
             </p>
-            <div className="flex gap-3">
-              <Button type="button" onClick={finishBookAndLeave}>
-                Sim, terminei
-              </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setConfirmFinish(false)}
-              >
-                Cancelar
-              </Button>
+            <p className="mt-1 text-sm text-muted">Sua leitura ficou guardada.</p>
+          </div>
+
+          {sessionNotes.length > 0 ? (
+            <>
+              <p className="mt-5 text-center text-xs text-muted">
+                {sessionNotes.length}{" "}
+                {sessionNotes.length === 1
+                  ? "pensamento guardado"
+                  : "pensamentos guardados"}
+              </p>
+              <ul className="mt-3 flex flex-1 flex-col justify-center gap-2.5">
+                {sessionNotes.map((note, i) => {
+                  const paper = SESSION_PAPER[i % SESSION_PAPER.length];
+                  return (
+                    <li
+                      key={note.id}
+                      className="rounded-xl px-4 py-2.5 text-sm shadow-sm"
+                      style={{
+                        backgroundColor: paper.bg,
+                        color: paper.text,
+                        transform:
+                          i % 2 === 0 ? "rotate(-1deg)" : "rotate(1deg)",
+                      }}
+                    >
+                      {note.content}
+                    </li>
+                  );
+                })}
+              </ul>
+              <p className="mt-4 text-center text-xs text-muted">
+                Eles já estão na sua Mente.
+              </p>
+            </>
+          ) : (
+            <p className="mt-6 flex flex-1 items-center justify-center text-center text-sm text-muted">
+              Nenhuma anotação desta vez — tudo bem.
+            </p>
+          )}
+
+          <Link href="/" className="mt-6 block">
+            <Button type="button" className="w-full">
+              Voltar ao início
+            </Button>
+          </Link>
+        </div>
+      ) : (
+        <>
+          {/* Timer em destaque */}
+          <div className="flex flex-1 flex-col items-center justify-center px-6 py-10 text-center">
+            <span className="font-mono text-6xl tabular-nums tracking-tight">
+              {formatTimer(elapsed)}
+            </span>
+            <span className="mt-2 text-xs text-muted">
+              {running
+                ? "Lendo agora"
+                : started
+                  ? "Pausado"
+                  : "Pronto para começar"}
+            </span>
+
+            <div className="mt-7 flex gap-3">
+              {!started && (
+                <Button type="button" onClick={start}>
+                  Iniciar leitura
+                </Button>
+              )}
+              {running && (
+                <Button type="button" onClick={pause}>
+                  Pausar
+                </Button>
+              )}
+              {started && !running && (
+                <>
+                  <Button type="button" onClick={start}>
+                    Retomar
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={finishSession}
+                  >
+                    Finalizar
+                  </Button>
+                </>
+              )}
             </div>
           </div>
-        ) : noteOpen ? (
-          <div>
-            <textarea
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              placeholder="Guardar um pensamento…"
-              rows={2}
-              autoFocus
-              className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
-            />
-            <div className="mt-2 flex items-center justify-between">
-              <button
-                type="button"
-                onClick={() => setNoteOpen(false)}
-                className="text-xs text-muted transition-colors hover:text-foreground"
-              >
-                Fechar
-              </button>
-              <Button
-                type="button"
-                onClick={saveDraft}
-                disabled={!draft.trim()}
-                className="h-9 px-4"
-              >
-                Guardar
-              </Button>
-            </div>
 
-            {sessionNotes.length > 0 && (
-              <ul className="mt-3 flex flex-col gap-2">
-                {sessionNotes.map((note) => (
-                  <li
-                    key={note.id}
-                    className="rounded-xl border border-border bg-background px-4 py-3 text-sm"
+          {/* Folha de anotação (recolhida por padrão) */}
+          <div className="rounded-t-3xl border-t border-border bg-surface px-6 py-5">
+            <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-border" />
+
+            {confirmFinish ? (
+              <div className="flex flex-col items-center gap-3 text-center">
+                <p className="text-sm text-muted">
+                  Marcar “{book.title}” como lido no aplicativo?
+                </p>
+                <div className="flex gap-3">
+                  <Button type="button" onClick={finishBookAndLeave}>
+                    Sim, terminei
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setConfirmFinish(false)}
                   >
-                    {note.content}
-                  </li>
-                ))}
-              </ul>
+                    Cancelar
+                  </Button>
+                </div>
+              </div>
+            ) : noteOpen ? (
+              <div>
+                <textarea
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  placeholder="Guardar um pensamento…"
+                  rows={2}
+                  autoFocus
+                  className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+                />
+                <div className="mt-2 flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setNoteOpen(false)}
+                    className="text-xs text-muted transition-colors hover:text-foreground"
+                  >
+                    Fechar
+                  </button>
+                  <Button
+                    type="button"
+                    onClick={saveDraft}
+                    disabled={!draft.trim()}
+                    className="h-9 px-4"
+                  >
+                    Guardar
+                  </Button>
+                </div>
+
+                {sessionNotes.length > 0 && (
+                  <ul className="mt-3 flex flex-col gap-2">
+                    {sessionNotes.map((note) => (
+                      <li
+                        key={note.id}
+                        className="rounded-xl border border-border bg-background px-4 py-3 text-sm"
+                      >
+                        {note.content}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => setNoteOpen(true)}
+                  className="text-sm text-foreground transition-colors hover:text-accent"
+                >
+                  ＋ Guardar um pensamento
+                  {sessionNotes.length > 0 && (
+                    <span className="ml-2 text-xs text-muted">
+                      ({sessionNotes.length})
+                    </span>
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setConfirmFinish(true)}
+                  className="text-xs text-muted underline transition-colors hover:text-foreground"
+                >
+                  Terminei o livro
+                </button>
+              </div>
             )}
           </div>
-        ) : (
-          <div className="flex items-center justify-between">
-            <button
-              type="button"
-              onClick={() => setNoteOpen(true)}
-              className="text-sm text-foreground transition-colors hover:text-accent"
-            >
-              ＋ Guardar um pensamento
-              {sessionNotes.length > 0 && (
-                <span className="ml-2 text-xs text-muted">
-                  ({sessionNotes.length})
-                </span>
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={() => setConfirmFinish(true)}
-              className="text-xs text-muted underline transition-colors hover:text-foreground"
-            >
-              Terminei o livro
-            </button>
-          </div>
-        )}
-      </div>
+        </>
+      )}
     </main>
   );
 }
