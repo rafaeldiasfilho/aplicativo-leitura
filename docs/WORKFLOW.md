@@ -23,6 +23,14 @@ A IA é **apoio de engenharia, não piloto automático**. O fundador decide prod
 9. Atualizar documentação se a decisão mudou (`ACTIVE_DECISIONS.md`/`VISUAL_DECISIONS.md`).
 10. Commit pequeno e claro. Só então avançar.
 
+## Triagem de ideias (colaboração de produto)
+
+Antes de uma ideia virar tarefa, ela passa por **triagem**: a IA confronta com os docs e recomenda um veredito (**Entra** / **Adia** / **Meio-termo** / **Veta**) com o porquê; o founder decide. Regra-mestra: toda função nova deixa o app **mais confortável, não mais pesado**.
+
+- O registro vivo fica em `docs/IDEAS.md` (funil de entrada, com veredito datado).
+- "Adiado grande" sobe para `FUTURE_IDEAS.md`; "Entra" vira tarefa no `KANBAN`/`ROADMAP` + decisão em `ACTIVE_DECISIONS.md`.
+- Skill: `triagem-de-ideias`.
+
 ## Validação (monorepo)
 
 ```bash
