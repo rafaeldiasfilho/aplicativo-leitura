@@ -26,11 +26,11 @@ O contador de leitura é o coração da experiência (`APP_CONTEXT.md` §13). El
 - Ao finalizar: capturar o tempo atual, somar minutos reais ao livro (`addReadingMinutes`).
 - "Terminei o livro" soma o tempo e marca `status: "lido" / historico: false` (`finishBook`).
 
-## Estado atual
-- `apps/web/src/app/leitura/leitura-view.tsx` — timer + anotação + overlay do Mural, em memória (sem banco ainda).
+## Onde mexer
+- `apps/web/src/app/leitura/leitura-view.tsx` — timer + anotação + overlay do Mural.
 - `apps/web/src/lib/books-store.ts` — `addReadingMinutes`, `finishBook`.
-- Já existem: **resumo final de sessão** (#10) e **Mural** com balões sugeridos (#13, #15), que **não pausam** o timer.
-- Ainda não existe: **PiP** (minimizar o contador estilo picture-in-picture).
+
+> Status do que já existe vs. pendente (PiP, etc.) vive em `docs/ROADMAP.md`/`docs/KANBAN.md`, não aqui — esta skill carrega as **regras** do tempo, não o estado.
 
 ## Validação
 - Iniciar → pausar → conferir que o tempo congela; retomar → conferir que continua.

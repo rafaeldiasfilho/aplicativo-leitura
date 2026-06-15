@@ -41,6 +41,17 @@ pnpm build
 
 (Quando houver testes: `pnpm test`.) Build passando **não** significa experiência funcionando — testar o fluxo manualmente.
 
+O `pnpm lint` inclui o **`docs-lint`** (ver abaixo).
+
+## Documentação sem deriva (docs-lint + curador)
+
+A documentação é derivada e mora em vários lugares; sem disciplina, apodrece. Duas camadas evitam isso, e nenhuma depende de memória:
+
+- **Camada mecânica — `docs-lint`** (`scripts/docs-lint.mjs`, roda no `pnpm lint`): checa invariantes determinísticas — toda skill/subagente listada no `AI_AGENTS.md`, links `.md` em `docs/` que resolvem, frontmatter válido, e **skills/agentes sem estado** (sem "estado atual / ainda não existe / (Fase N)"). Um hook **bloqueia `git commit`** se falhar.
+- **Camada semântica — `docs-context-curator`**: o que script nenhum pega (contradições, duplicação de sentido). Convocado ao **fechar fase** ou ao sentir conflito.
+
+Princípio que sustenta tudo: **skills e subagentes carregam regra, não estado.** Status ("já existe / falta o PiP") vive só no código + `ROADMAP`/`KANBAN`. Assim a regra não apodrece quando o produto avança.
+
 ## Telas importantes e momentos emocionais → processo de variações
 
 Antes de uma **tela principal** (Home, Biblioteca, Modo Leitura, Mural, Mente) **ou de qualquer tela/momento com peso emocional** (ex.: resumo de sessão, conclusão de livro, onboarding, vazios acolhedores): **3 variações estáticas → escolher → 4ª refinada → revisar com o usuário → só então implementar**, em `design-lab`/mock, sem banco. Registrar em `VISUAL_DECISIONS.md` (ver `APP_CONTEXT.md` §90).
