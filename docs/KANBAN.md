@@ -8,15 +8,8 @@
 
 ---
 
-## Agora (Fase 2 — UX de leitura e anotações)
+## Agora (Fase 3 — Mural e Mente)
 
-- [x] Resumo final de sessão (apanhado + post-its ao finalizar) — via §90
-- [x] Tipos de anotação com identidade visual (Rápida · Reflexão · Marca-texto · Post-it) — via §90
-- [x] Lixeira (soft delete / restaurar) — anotações; acesso por Configurações
-
-## Backlog próximo (Fase 3)
-
-- [x] Mural (lousa) — overlay no Modo Leitura, balões arrastáveis, timer correndo — via §90
 - [ ] Balões sugeridos (até 5, posição fixa na sessão, sem sobrepor)
 - [ ] Mente com cérebro central e categorias automáticas simples
 
@@ -29,4 +22,6 @@
 
 - **Fase 0 — Base técnica:** monorepo pnpm+turbo, casca/layout, navegação adaptativa, tema claro/escuro/sistema, componentes base, rotas vazias.
 - **Fase 1 — Ciclo mínimo:** Home (carrossel), adicionar livro, Biblioteca, Modo Leitura (timer + anotação), revisão de anotações — tudo em memória. Ciclo `cadastrar → ler → anotar → finalizar → revisar → voltar` de pé.
+- **Fase 2 — UX de leitura e anotações:** resumo final de sessão, tipos de anotação com identidade visual e Lixeira (soft delete) — via §90 onde havia peso visual.
+- **Mural (lousa, Fase 3):** overlay no Modo Leitura, balões arrastáveis, timer correndo, âncora da capa harmonizada — via §90.
 - **Refinamentos:** padrão de layout (coleção/foco) + FAB de adicionar, fix de hidratação, 3 skills de apoio (`reading-session-timer`, `release-checklist`, `grill-with-docs`).
