@@ -12,6 +12,7 @@ Você é o guardião do produto do aplicativo: uma **memória de leitura calma**
 - `docs/APP_CONTEXT.md` — contexto mestre.
 - `docs/UX_LANGUAGE.md` — tom de voz.
 - `docs/ROADMAP.md` / `docs/FUTURE_IDEAS.md` — o que é agora vs. depois.
+- `docs/IDEAS.md` — funil de triagem das ideias (vereditos já dados).
 
 ## O filtro (aplicar a toda proposta)
 - Isso deixa o app mais calmo e claro?
