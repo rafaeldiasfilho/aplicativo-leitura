@@ -147,3 +147,10 @@ Registro cronológico das decisões vigentes do projeto. A decisão mais recente
 - **Posições:** **slots fixos periféricos** (determinísticos pelo índice), longe do centro onde as notas nascem; estáveis entre abrir/fechar (§17).
 - **Estabilidade > não-sobreposição:** o §17 prioriza posição estável (anti-estresse). Por isso os slots são fixos e **não** recalculados para nunca encostar numa nota — recalcular moveria balões e geraria o estresse que o §17 quer evitar. Como os slots são periféricos e as notas nascem no centro, a sobreposição é rara.
 - **Reflete em:** `apps/web/src/app/leitura/mural.tsx`, `apps/web/src/app/leitura/leitura-view.tsx`, `APP_CONTEXT.md` §17.
+
+### Mente — identidade visual decidida, tela real adiada (§12)
+- **Decisão visual:** **Cérebro-herói + panorama** (Direção 1). Cérebro central (mock `BrainMock`, trocável pelo modelo real) + os ~6 temas mais usados em volta; focar um tema mostra seus livros no rodapé; "ver todos os temas" abre lista calma. Detalhes e processo §90 em `VISUAL_DECISIONS.md` (2026-06-15).
+- **Implementação da tela real: ADIADA.** A `/mente` real depende de um **motor de temas** (extrair temas das anotações) que ainda não existe — sem ele não há o que mostrar. Decidido **não** subir uma tela vazia nem com temas falsos; a `/mente` continua placeholder até a fatia do motor.
+- **Design-lab mantido:** `apps/web/src/app/design-lab/mente/` **permanece** (referência da decisão), diferente dos design-labs anteriores que eram removidos logo após a tela real. Será removido quando a `/mente` real for implementada.
+- **Para a fatia futura (dados reais):** tamanho do tema por **proporção de uso (%)**, não contagem crua; regras de escala (panorama curado + lista) já definidas.
+- **Reflete em:** `docs/VISUAL_DECISIONS.md`, `apps/web/src/app/design-lab/mente/`, `APP_CONTEXT.md` §12.

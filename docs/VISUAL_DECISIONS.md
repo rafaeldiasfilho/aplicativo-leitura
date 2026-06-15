@@ -290,3 +290,29 @@ Validado com typecheck/lint/build (`/anotacoes` e `/leitura?id=…` → 200).
 - **Fora de escopo:** balões sugeridos (§17), banco.
 
 Validado com typecheck/lint/build (`/leitura?id=…` → 200).
+
+## 2026-06-15 — Identidade visual da Mente (Fase 3) pelo processo §90
+
+**Contexto:** a Mente é o "cérebro" do leitor (§12) — temas, padrões, conexões. Tela-âncora → processo de variações. Esta fatia define **só a identidade visual em mock**; o motor de extração de temas é fatia posterior.
+
+### Processo
+
+- **3 variações** iniciais em `/design-lab/mente`: V1 Constelação, V2 Orgânica, V3 Nuvem tipográfica.
+- Usuário quis **misturar** → montei **3 demos finalistas** (A Sereno, B Constelação serena, C Orgânico).
+- Ao testar escala (interruptor "Poucos/Muitos" com ~20 temas), a órbita lotava (sobreposição). Repensamos o layout: o usuário escolheu a **Direção 1 — Cérebro-herói + panorama**.
+
+### Escolha final — Cérebro-herói + panorama (evolução da demo A)
+
+- **Cérebro central** como herói (`BrainMock`, SVG abstrato determinístico) — **trocável** pelo modelo de cérebro que o Rafael vai enviar (§12), mexendo só nesse componente.
+- **Panorama curado:** só os **~6 temas mais usados** orbitam, bem espaçados (nunca lota). Tamanho do texto = uso; ordenação por nº de anotações.
+- **Profundidade separada (anti "mapa confuso", §12):** focar um tema revela **os livros daquele tema** no rodapé (conexão sob demanda, por realce — sem linhas); "ver todos os temas" abre uma **lista calma rolável**.
+- **Escala:** a sensação é idêntica com 6 ou 200 temas — o panorama é sempre curado, o resto vive na lista.
+- **Estética (herdada da demo A):** papel quente (`--mural-surface`/`--mural-ink`), temas em **texto**, acento sálvia, cérebro respirando (`mural-breathe`).
+- **Ajuste registrado para os dados reais:** tamanho do tema deve sair da **proporção de uso (%)**, não da contagem crua, para um tema gigante não esmagar os demais.
+
+### Pendências (não nesta fatia)
+
+- **Motor de temas** (extrair temas das anotações) — sem ele, a `/mente` real não tem dados. Decisão de quando/como implementar a tela real em `ACTIVE_DECISIONS.md`.
+- `design-lab/mente` será **removido** após a implementação da tela real (como nos anteriores). Por ora **permanece** para referência.
+
+Validado: lint/typecheck/build verdes; `/design-lab/mente` → 200.
