@@ -11,7 +11,9 @@
 ## Agora (Fase 3 — Mural e Mente)
 
 - [x] Balões sugeridos (até 5, fantasma tracejado, slots fixos, somem ao escrever) — §17
-- [ ] Mente com cérebro central e categorias automáticas simples
+- [x] Mente — identidade visual (cérebro-herói + panorama) decidida via §90 — design-lab
+- [ ] Mente — motor de temas (extrair temas das anotações) → habilita a tela real
+- [ ] Mente — tela real `/mente` (adiada até o motor de temas)
 
 ## Bloqueado / aguardando autorização
 

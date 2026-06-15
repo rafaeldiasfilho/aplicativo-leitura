@@ -69,7 +69,9 @@ Objetivo: provar `cadastrar livro → iniciar leitura → anotar rápido → fin
 - [x] Mural (lousa) — overlay no Modo Leitura, balões arrastáveis (look V4 via §90)
 - [x] Garantir que abrir o Mural não pausa o timer de leitura (overlay no `leitura-view`)
 - [x] Balões sugeridos (até 5, posição fixa na sessão; fantasma tracejado, somem ao escrever)
-- [ ] Mente com cérebro central e categorias automáticas simples
+- [x] Mente — identidade visual (cérebro-herói + panorama) decidida via §90
+- [ ] Mente — motor de temas (extrair temas das anotações) → habilita a tela real
+- [ ] Mente — tela real `/mente` (adiada até o motor de temas)
 
 ## Fase 4 — Supabase e beta fechado
 
