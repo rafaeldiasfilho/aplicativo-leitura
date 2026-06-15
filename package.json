@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "lint": "turbo lint",
+    "lint": "turbo lint && node scripts/docs-lint.mjs",
+    "docs-lint": "node scripts/docs-lint.mjs",
     "typecheck": "turbo typecheck",
     "web": "pnpm --filter @aplicativo/web"
   },

@@ -23,7 +23,7 @@ pnpm build
 git status
 git diff
 ```
-- Tudo passa, sem warnings novos.
+- Tudo passa, sem warnings novos. (`pnpm lint` inclui o `docs-lint`, que bloqueia commit com docs fora de sincronia.)
 - O `git diff` contém só o que a tarefa pedia (sem arquivos ou trechos a mais).
 
 ### Produto / UX

@@ -36,6 +36,11 @@
 - **Banco/arquivos (só quando entrar Supabase/PDF):** agentes `backend-supabase-rls`, `pdf-epub-reader-engineer`, `privacy-copyright-reviewer`; skills `supabase-rls-check`, `pdf-reader-plan`, `kindle-import-plan`, `privacy-copyright-check`.
 - **Beta:** agente `beta-feedback-analyst`; skill `beta-feedback`.
 
+## Anti-deriva (docs sempre coerentes)
+- **`docs-lint`** (`scripts/docs-lint.mjs`, no `pnpm lint`): guarda mecânico — toda skill/subagente aqui listada, links `.md` válidos, frontmatter ok, skills/agentes **sem estado**. Um hook bloqueia `git commit` se falhar.
+- **`docs-context-curator`**: guarda semântico (contradições/duplicação). No fechamento de fase.
+- **Princípio:** skills e subagentes carregam **regra, não estado**. Status do produto vive em `ROADMAP`/`KANBAN`/código. Detalhes em `WORKFLOW.md`.
+
 ## Regras
 - Um subagente/skill só existe se tiver responsabilidade clara e uso real.
 - Não tocar em Supabase/Auth/RLS/Storage nem fazer commit/push sem autorização (vale para todos).
