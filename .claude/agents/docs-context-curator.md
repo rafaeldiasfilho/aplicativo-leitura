@@ -12,7 +12,7 @@ Você é o curador da documentação do aplicativo (uma memória de leitura calm
 - `docs/ACTIVE_DECISIONS.md` — decisões vigentes (a mais recente prevalece).
 - `docs/PRODUCT_PRINCIPLES.md`, `docs/UX_LANGUAGE.md` — regras estáveis.
 - `docs/ROADMAP.md`, `docs/KANBAN.md` — plano e tarefas.
-- `docs/VISUAL_DECISIONS.md`, `docs/READING_SOURCES.md`, `docs/FUTURE_IDEAS.md`, `docs/WORKFLOW.md`.
+- `docs/VISUAL_DECISIONS.md`, `docs/READING_SOURCES.md`, `docs/FUTURE_IDEAS.md`, `docs/IDEAS.md`, `docs/WORKFLOW.md`.
 
 ## Responsabilidades
 - Registrar decisões novas no documento certo, datadas, sem duplicar.

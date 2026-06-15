@@ -15,6 +15,7 @@
 | `reading-session-timer` | Ao criar/alterar o contador de leitura, sessões ou Modo Leitura — protege as regras do tempo real. |
 | `release-checklist` | Ao final de uma tarefa, antes de "pronto"/commit — valida build, lint, tipos, UX e docs. |
 | `grill-with-docs` | Antes de feature grande ou decisão sensível — entrevistar cruzando com os docs antes de implementar. |
+| `triagem-de-ideias` | Quando surge uma ideia nova — dar veredito (Entra/Adia/Meio-termo/Veta) cruzando com os docs e registrar em `docs/IDEAS.md`. |
 
 ## Subagentes (`.claude/agents/`)
 
@@ -24,6 +25,7 @@
 | `product-guardian` | Proteger a essência calma ao avaliar feature nova, Premium ou redesign de telas. |
 
 ## Como combinar (exemplos)
+- Surgiu uma ideia nova → skill `triagem-de-ideias` (veredito em `docs/IDEAS.md`); se aprovada, vira tarefa.
 - Terminou uma tarefa com decisão nova → `docs-context-curator` + skill `context-update`.
 - Pedido amplo ("crie a Home") → skill `task-slicing`, depois processo de variações (§90), com `product-guardian` avaliando.
 

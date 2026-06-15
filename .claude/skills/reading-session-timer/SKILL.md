@@ -16,7 +16,7 @@ O contador de leitura é o coração da experiência (`APP_CONTEXT.md` §13). El
 ## Regras obrigatórias (§13/§14)
 - Contar **somente** quando a leitura está ativa.
 - **Pausar** quando o usuário pausa; **retomar** continua de onde parou.
-- Abrir o **Mural não pausa** o tempo (regra futura, mas já considere).
+- Abrir o **Mural não pausa** o tempo (já implementado: overlay no `leitura-view`).
 - Acumular o tempo total do livro a cada sessão finalizada.
 - Separar **tempo real** (medido no app, `historico: false`) do **tempo estimado** (livros já lidos, `historico: true`) — nunca misturar.
 - Não perder a sessão por engano (estado preservado durante a leitura).
@@ -26,10 +26,11 @@ O contador de leitura é o coração da experiência (`APP_CONTEXT.md` §13). El
 - Ao finalizar: capturar o tempo atual, somar minutos reais ao livro (`addReadingMinutes`).
 - "Terminei o livro" soma o tempo e marca `status: "lido" / historico: false` (`finishBook`).
 
-## Estado atual (Fase 1)
-- `apps/web/src/app/leitura/leitura-view.tsx` — timer + anotação, em memória.
+## Estado atual
+- `apps/web/src/app/leitura/leitura-view.tsx` — timer + anotação + overlay do Mural, em memória (sem banco ainda).
 - `apps/web/src/lib/books-store.ts` — `addReadingMinutes`, `finishBook`.
-- Resumo final animado, PiP e Mural ainda não existem (fases seguintes).
+- Já existem: **resumo final de sessão** (#10) e **Mural** com balões sugeridos (#13, #15), que **não pausam** o timer.
+- Ainda não existe: **PiP** (minimizar o contador estilo picture-in-picture).
 
 ## Validação
 - Iniciar → pausar → conferir que o tempo congela; retomar → conferir que continua.
