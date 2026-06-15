@@ -45,20 +45,24 @@ Objetivo: esqueleto técnico mínimo, sem telas de produto ainda.
 
 Objetivo: provar `cadastrar livro → iniciar leitura → anotar rápido → finalizar sessão → revisar pensamento → voltar`, ainda sem banco (dados mockados/locais).
 
-- [ ] Home estática com livro(s) em leitura (mock) e botão "Continuar leitura"
-- [ ] Botão "+" de adição rápida (junto com o fluxo de adicionar livro)
-- [ ] Biblioteca mínima (Quero ler / Lendo / Pausado / Lido, mock)
-- [ ] Modo Leitura mínimo: timer real local + anotação rápida em memória
-- [ ] Tela de revisão simples da anotação criada
-- [ ] Mente simples (placeholder calmo, sem categorização ainda)
-- [ ] Configurações básicas (tema)
+- [x] Home estática com livro(s) em leitura (mock) e botão "Continuar leitura"
+- [x] Botão "+" de adição rápida (junto com o fluxo de adicionar livro)
+- [x] Biblioteca mínima (Quero ler / Lendo / Pausado / Lido, mock)
+- [x] Modo Leitura mínimo: timer real local + anotação rápida em memória
+- [x] Tela de revisão simples da anotação criada
+- [x] Mente simples (placeholder calmo, sem categorização ainda)
+- [x] Configurações básicas (tema)
+
+> Fase 1 concluída — ciclo `cadastrar → ler → anotar → finalizar → revisar → voltar` de pé, tudo em memória.
 
 ## Fase 2 — UX de leitura e anotações
 
-- [ ] Pausar / retomar / finalizar sessão com resumo final
-- [ ] Tipos de anotação (Rápida, Reflexão, Marca-texto, Post-it) com identidade visual própria
-- [ ] Pilha de post-its
-- [ ] Lixeira (soft delete / restaurar)
+- [x] Pausar / retomar / finalizar sessão com resumo final
+- [x] Tipos de anotação (Rápida, Reflexão, Marca-texto, Post-it) com identidade visual própria
+- [ ] Pilha de post-its (não construída — "post-it" virou um tipo de anotação; reavaliar se ainda faz sentido)
+- [x] Lixeira (soft delete / restaurar)
+
+> Fase 2 concluída — itens centrais entregues; "pilha de post-its" fica em avaliação.
 
 ## Fase 3 — Mural e Mente
 
