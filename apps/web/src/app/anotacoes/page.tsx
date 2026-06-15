@@ -1,23 +1,52 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useBooks } from "@/lib/books-store";
-import { useNotes } from "@/lib/notes-store";
+import { useNotes, deleteNote } from "@/lib/notes-store";
 import type { Note } from "@/lib/notes";
 import { NoteItem } from "@/components/note-item";
+import { formatNoteDate } from "@/lib/dates";
 import { Button } from "@/components/ui/button";
 
-// Mostra o horário de forma calma: "às 14:32" se for hoje, senão "12/06".
-function formatNoteDate(createdAt: number): string {
-  const d = new Date(createdAt);
-  const now = new Date();
-  const sameDay =
-    d.getDate() === now.getDate() &&
-    d.getMonth() === now.getMonth() &&
-    d.getFullYear() === now.getFullYear();
-  const pad = (n: number) => n.toString().padStart(2, "0");
-  if (sameDay) return `às ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}`;
+// Uma anotação na lista + ação sutil de apagar (com confirmação inline).
+// Apagar move para a Lixeira (reversível), §19.
+function NoteRow({ note }: { note: Note }) {
+  const [confirming, setConfirming] = useState(false);
+  return (
+    <li>
+      <NoteItem note={note} time={formatNoteDate(note.createdAt)} />
+      <div className="mt-1 flex justify-end">
+        {confirming ? (
+          <span className="flex items-center gap-3 text-xs">
+            <span className="text-muted">Apagar?</span>
+            <button
+              type="button"
+              onClick={() => deleteNote(note.id)}
+              className="text-muted underline transition-colors hover:text-foreground"
+            >
+              Apagar
+            </button>
+            <button
+              type="button"
+              onClick={() => setConfirming(false)}
+              className="text-muted transition-colors hover:text-foreground"
+            >
+              Cancelar
+            </button>
+          </span>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setConfirming(true)}
+            className="text-xs text-muted/70 transition-colors hover:text-foreground"
+          >
+            Apagar
+          </button>
+        )}
+      </div>
+    </li>
+  );
 }
 
 // Anotações: onde o leitor reencontra o que guardou (fecha o ciclo do MVP).
@@ -68,9 +97,7 @@ export default function AnotacoesPage() {
           </h2>
           <ul className="mx-auto mt-3 flex max-w-md flex-col gap-3">
             {group.notes.map((note) => (
-              <li key={note.id}>
-                <NoteItem note={note} time={formatNoteDate(note.createdAt)} />
-              </li>
+              <NoteRow key={note.id} note={note} />
             ))}
           </ul>
         </section>
