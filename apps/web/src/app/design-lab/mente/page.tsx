@@ -2,38 +2,53 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/cn";
-import { V1Constelacao } from "./v1-constelacao";
-import { V2Organica } from "./v2-organica";
-import { V3Nuvem } from "./v3-nuvem";
+import {
+  MOCK_BOOKS,
+  MOCK_BOOKS_MANY,
+  MOCK_THEMES,
+  MOCK_THEMES_MANY,
+  type MenteBook,
+  type MenteTheme,
+} from "./mock-data";
+import { HybridASereno } from "./hybrid-a-sereno";
+import { HybridBConstelacao } from "./hybrid-b-constelacao";
+import { HybridCOrganico } from "./hybrid-c-organico";
 
-// Design-lab da Mente (§90) — descartável. 3 variações estáticas em mock para
-// escolher a identidade visual antes de implementar a tela real. Será removido
-// depois da decisão (como os design-labs anteriores).
+// Design-lab da Mente (§90) — descartável. Demos finalistas (híbridos das 3
+// variações iniciais) para a escolha visual antes de implementar a tela real.
+// Será removido depois da decisão (como os design-labs anteriores).
+
+type DataSet = { themes: MenteTheme[]; books: MenteBook[] };
 
 const VARIANTS = [
   {
-    id: "v1",
-    name: "V1 — Constelação",
-    hint: "Cérebro ao centro, temas em órbita, conexões que acendem ao focar.",
-    render: () => <V1Constelacao />,
+    id: "a",
+    name: "A — Cérebro-herói",
+    hint: "Cérebro central + só os temas mais usados em volta. Focar um tema mostra seus livros no rodapé; 'ver todos' abre a lista. Escala sem lotar.",
+    render: (d: DataSet) => <HybridASereno {...d} />,
   },
   {
-    id: "v2",
-    name: "V2 — Orgânica",
-    hint: "Cérebro vivo; temas crescem como folhas; raízes até os livros.",
-    render: () => <V2Organica />,
+    id: "b",
+    name: "B — Constelação",
+    hint: "Atmosfera etérea, bolhas em órbita, halo; linhas bem sutis + livro acende.",
+    render: (d: DataSet) => <HybridBConstelacao {...d} />,
   },
   {
-    id: "v3",
-    name: "V3 — Nuvem",
-    hint: "O mais calmo: temas em texto; conexão por realce, sem linhas.",
-    render: () => <V3Nuvem />,
+    id: "c",
+    name: "C — Orgânico",
+    hint: "Papel quente, cérebro vivo, temas como folhas, raízes suaves até os livros.",
+    render: (d: DataSet) => <HybridCOrganico {...d} />,
   },
 ] as const;
 
 export default function DesignLabMente() {
-  const [active, setActive] = useState<(typeof VARIANTS)[number]["id"]>("v1");
-  const current = VARIANTS.find((v) => v.id === active)!;
+  const [active, setActive] = useState<(typeof VARIANTS)[number]["id"]>("a");
+  const [many, setMany] = useState(false);
+  const current = VARIANTS.find((v) => v.id === active) ?? VARIANTS[0];
+
+  const data: DataSet = many
+    ? { themes: MOCK_THEMES_MANY, books: MOCK_BOOKS_MANY }
+    : { themes: MOCK_THEMES, books: MOCK_BOOKS };
 
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-10">
@@ -63,9 +78,34 @@ export default function DesignLabMente() {
         ))}
       </div>
 
+      {/* Interruptor de escala: poucos vs. muitos temas (teste de poluição) */}
+      <div className="mt-3 flex items-center justify-center gap-2">
+        <span className="text-xs text-muted">Conteúdo:</span>
+        <button
+          type="button"
+          onClick={() => setMany(false)}
+          className={cn(
+            "rounded-full px-3 py-1 text-xs font-medium transition-colors",
+            !many ? "bg-accent text-accent-foreground" : "bg-surface text-muted",
+          )}
+        >
+          Poucos ({MOCK_THEMES.length})
+        </button>
+        <button
+          type="button"
+          onClick={() => setMany(true)}
+          className={cn(
+            "rounded-full px-3 py-1 text-xs font-medium transition-colors",
+            many ? "bg-accent text-accent-foreground" : "bg-surface text-muted",
+          )}
+        >
+          Muitos ({MOCK_THEMES_MANY.length})
+        </button>
+      </div>
+
       <p className="mt-3 text-center text-sm text-muted">{current.hint}</p>
 
-      <div className="mt-6">{current.render()}</div>
+      <div className="mt-6">{current.render(data)}</div>
     </main>
   );
 }
