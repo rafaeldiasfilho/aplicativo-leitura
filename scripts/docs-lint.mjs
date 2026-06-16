@@ -10,6 +10,7 @@
 //  4. Links markdown ](*.md) em docs/ apontam para arquivo existente.
 //  5. Skills/agentes carregam REGRA, não ESTADO (sem "estado atual", "ainda
 //     não existe", "(Fase N)") — estado vive no código + ROADMAP/KANBAN.
+//  6. Refs "§N" em docs/ apontam para uma seção existente do APP_CONTEXT.
 
 import { readdirSync, readFileSync, existsSync, statSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
@@ -104,6 +105,26 @@ for (const [dir, kind] of [[skillsDir, "skill"], [agentsDir, "agente"]]) {
       if (hit)
         err(
           `${kind} ${p}: contém estado ("${hit[0]}"). Skills/agentes carregam regra, não estado — mova status para ROADMAP/KANBAN/código.`,
+        );
+    }
+  }
+}
+
+// --- 6. refs §N apontam para seção existente do APP_CONTEXT ---
+const appContextPath = "docs/APP_CONTEXT.md";
+if (existsSync(appContextPath)) {
+  const sections = new Set();
+  for (const m of read(appContextPath).matchAll(/^##\s+(\d+)\./gm))
+    sections.add(Number(m[1]));
+  const maxSection = Math.max(...sections);
+  for (const file of listDir(docsDir)) {
+    if (!file.endsWith(".md")) continue;
+    const text = read(join(docsDir, file));
+    for (const m of text.matchAll(/§(\d+)/g)) {
+      const n = Number(m[1]);
+      if (!sections.has(n))
+        err(
+          `docs/${file}: ref "§${n}" não existe no APP_CONTEXT (seções vão até §${maxSection}).`,
         );
     }
   }
