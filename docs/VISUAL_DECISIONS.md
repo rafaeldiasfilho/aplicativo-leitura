@@ -259,7 +259,7 @@ Validado com typecheck/lint/build (`/leitura?id=…` → 200).
 - `SESSION_PAPER` **removido**; o resumo agora renderiza cada nota pelo seu tipo.
 - O **seletor** de tipos fica neutro (pills com rótulo) — a identidade se revela na anotação renderizada, não na escolha, para não poluir o momento de leitura.
 - `design-lab` **removido** após a decisão (§90).
-- **Fora de escopo:** anotação expandida com lixeira (§587, depende da Lixeira) e Mural.
+- **Fora de escopo:** anotação expandida com lixeira (§15, depende da Lixeira) e Mural.
 
 Validado com typecheck/lint/build (`/anotacoes` e `/leitura?id=…` → 200).
 
